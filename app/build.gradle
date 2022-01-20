@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdk rootProject.ext.android.minSdkVersion
+        targetSdk rootProject.ext.android.targetSdkVersion
+        applicationId rootProject.ext.app.applicationId
+        versionCode rootProject.ext.app.versionCode
+        versionName rootProject.ext.app.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            //abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+        }
+
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../aigo-ui.keystore')
+            storePassword "aigo-ui"
+            keyAlias "aigo-ui"
+            keyPassword "aigo-ui"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    annotationProcessor rootProject.ext.dependencies["arouter_compiler"]
+    implementation project(':zbase')
+}

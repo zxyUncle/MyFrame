@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+dependencies {
+    //适用于所有Module
+    api rootProject.ext.dependencies["junit"]
+    api rootProject.ext.dependencies["appcompat"]
+    api rootProject.ext.dependencies["material"]
+    api rootProject.ext.dependencies["constraintlayout"]
+    api rootProject.ext.dependencies["arouter_api"]
+    annotationProcessor rootProject.ext.dependencies["arouter_compiler"]
+    api rootProject.ext.dependencies["multidex"]
+    //第三方依赖库
+    api rootProject.ext.dependencies["cardview"]
+    api rootProject.ext.dependencies["recyclerview"]
+    api rootProject.ext.dependencies["glide_okhttp"]
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+    api rootProject.ext.dependencies["autodispose"]
+    api rootProject.ext.dependencies["rxandroid"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["adapter_rxjava"]
+    api rootProject.ext.dependencies["converter_gson"]
+    api rootProject.ext.dependencies["logging_interceptor"]
+    api rootProject.ext.dependencies["okhttp-urlconnection"]
+    api rootProject.ext.dependencies["eventbus"]
+    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    api rootProject.ext.dependencies["SmartRefreshLayout"]
+    api rootProject.ext.dependencies["SmartRefreshHeader"]
+    api rootProject.ext.dependencies["SmartRefreshFooter"]
+    api rootProject.ext.dependencies["xlog"]
+    api rootProject.ext.dependencies["DialogDemo"]
+    api rootProject.ext.dependencies["kprogresshud"]
+}
