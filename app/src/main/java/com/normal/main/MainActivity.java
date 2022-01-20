@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.initView(savedInstanceState);
         mDataBind.setPage(this);
     }
+
     public void onLogin(View view) {
         Map<String, String> map = new HashMap<>();
         map.put("userName", "11111111112");
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         map.put("channel", "wzsz");
         map.put("system", "customer");
         map.put("expiry", "-1");
-        ApiManager.get(apiService().accountLogin(map), this)
+        ApiManager.enqueue(apiService().accountLogin(map), getActivity())
                 .subscribe(new ApiSubscriber<LoginResultBean>() {
                     @Override
                     protected void onResponse(LoginResultBean baseBean, boolean isSucc) {
@@ -61,6 +62,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         super.onErrorHandle(exception);
                     }
                 });
+        Log.e("zxy", "测试");
+
 
     }
 }

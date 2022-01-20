@@ -73,9 +73,24 @@ object ApiManager {
         return mRetrofit.create(ApiService::class.java)
     }
 
-
+    /**
+     * 同步
+     */
     @JvmStatic
-    fun <T> get(
+    fun <T> execute(
+        flowable:Flowable<T>,
+        owner: LifecycleOwner
+    ): FlowableSubscribeProxy<T> {
+        return flowable
+            .compose(RxSchedulers.io())
+            .`as`(Rxlifecycle.bind(owner));
+    }
+
+    /**
+     * 异步
+     */
+    @JvmStatic
+    fun <T> enqueue(
         flowable:Flowable<T>,
         owner: LifecycleOwner
     ): FlowableSubscribeProxy<T> {
