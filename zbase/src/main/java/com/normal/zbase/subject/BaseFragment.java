@@ -17,16 +17,17 @@ import androidx.lifecycle.LifecycleObserver;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.normal.zbase.R;
-import com.normal.zbase.databinding.CustomToolbarLayoutBinding;
+import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.EventBusUtils;
 import com.normal.zbase.http.client.ApiManager;
 import com.normal.zbase.http.client.ApiService;
 
 /**
- * Created by zsf on 2022/1/17 16:02
+ * Created by zsf on 2022/1/20 11:49
  * *******************
  *    BaseFragment
+ * *******************
  */
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment implements View.OnClickListener {
 
@@ -150,7 +151,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     }
 
 
-    protected CustomToolbarLayoutBinding getCustomToolbarLayoutBinding(View view) {
+    protected ToolbarLayoutBinding getCustomToolbarLayoutBinding(View view) {
         return DataBindingUtil.bind(view.findViewById(R.id.custom_toolbar));
     }
 

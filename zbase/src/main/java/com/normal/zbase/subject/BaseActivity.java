@@ -9,6 +9,8 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleObserver;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.normal.zbase.R;
+import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.http.client.ApiManager;
 import com.normal.zbase.http.client.ApiService;
@@ -79,6 +81,10 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     protected ApiService apiService(){
         return ApiManager.apiService();
+    }
+
+    protected ToolbarLayoutBinding getCustomToolbarLayoutBinding(View view) {
+        return DataBindingUtil.bind(view.findViewById(R.id.custom_toolbar));
     }
 
 }

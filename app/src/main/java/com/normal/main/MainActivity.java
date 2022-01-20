@@ -40,13 +40,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         mDataBind.setPage(this);
-
     }
-
-    public static <T> Function<T, T> handleData() {
-        return baseResult -> baseResult;
-    }
-
     public void onLogin(View view) {
         Map<String, String> map = new HashMap<>();
         map.put("userName", "11111111112");
