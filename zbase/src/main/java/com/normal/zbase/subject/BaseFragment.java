@@ -20,8 +20,8 @@ import com.normal.zbase.R;
 import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.EventBusUtils;
-import com.normal.zbase.http.client.ApiManager;
-import com.normal.zbase.http.client.ApiService;
+import com.normal.zbase.http.subject.ApiManager;
+import com.normal.zbase.http.subject.ApiService;
 
 /**
  * Created by zsf on 2022/1/20 11:49

@@ -1,4 +1,4 @@
-package com.normal.zbase.http.client
+package com.normal.zbase.http.subject
 
 import com.normal.zbase.BuildConfig
 

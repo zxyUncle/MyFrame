@@ -1,30 +1,22 @@
-package com.normal.zbase.http.client
+package com.normal.zbase.http.subject
 
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.GsonBuilder
 import com.normal.zbase.BuildConfig
-import com.normal.zbase.http.bean.BaseBean
 import com.normal.zbase.http.interceptor.HeaderInterceptor
 import com.normal.zbase.http.utils.NullOnEmptyConverterFactory
 import com.normal.zbase.http.utils.Rxlifecycle
 import com.normal.zbase.utils.tools.ApplicationUtils
 import com.uber.autodispose.FlowableSubscribeProxy
 import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.io.IOException
 import java.net.CookieManager
 import java.net.CookiePolicy
-import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
 /**

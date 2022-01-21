@@ -1,4 +1,4 @@
-package com.normal.zbase.http.client
+package com.normal.zbase.http.subject
 
 import android.content.Context
 import com.normal.zbase.http.exception.APIException

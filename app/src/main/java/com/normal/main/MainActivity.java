@@ -1,27 +1,24 @@
 package com.normal.main;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.normal.main.databinding.ActivityMainBinding;
 import com.normal.zbase.http.bean.LoginResultBean;
-import com.normal.zbase.http.client.ApiManager;
-import com.normal.zbase.http.client.ApiSubscriber;
-import com.normal.zbase.http.bean.BaseBean;
-import com.normal.zbase.http.client.RxSchedulers;
+import com.normal.zbase.http.subject.ApiManager;
+import com.normal.zbase.http.subject.ApiSubscriber;
 import com.normal.zbase.http.exception.APIException;
-import com.normal.zbase.http.utils.Rxlifecycle;
 import com.normal.zbase.subject.BaseActivity;
+import com.normal.zbase.subject.BaseRecyclerViewAdapter;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zsf on 2022/1/17 17:38
@@ -30,7 +27,8 @@ import io.reactivex.schedulers.Schedulers;
  * *******************
  */
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
-
+    private BaseRecyclerViewAdapter<String> adapter = new BaseRecyclerViewAdapter<>(R.layout.adapter_item);
+    private List list = Arrays.asList("o1","o2");
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_main;
@@ -41,6 +39,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.initView(savedInstanceState);
         setToolbarTitle("Title");
         mDataBind.setPage(this);
+        adapter.setNewInstance(list);
     }
 
     public void onLogin(View view) {

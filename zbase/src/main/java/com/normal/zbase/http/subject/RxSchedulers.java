@@ -1,4 +1,4 @@
-package com.normal.zbase.http.client;
+package com.normal.zbase.http.subject;
 
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

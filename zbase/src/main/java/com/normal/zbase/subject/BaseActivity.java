@@ -12,8 +12,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.normal.zbase.R;
 import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
-import com.normal.zbase.http.client.ApiManager;
-import com.normal.zbase.http.client.ApiService;
+import com.normal.zbase.http.subject.ApiManager;
+import com.normal.zbase.http.subject.ApiService;
 import com.normal.zbase.manager.ActivityManager;
 import com.normal.zbase.event.EventBusUtils;
 import com.normal.zbase.utils.tools.ApplicationUtils;
@@ -94,12 +94,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         }
     }
 
-    protected boolean hideToolbar() {
-        return false;
-    }
-
     protected ToolbarLayoutBinding getToolbarLayoutBinding() {
-        if (!hideToolbar()) {
+        try {
             toolbarDataBind = DataBindingUtil.bind(mDataBind.getRoot().findViewById(R.id.toolbar));
             toolbarDataBind.left.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,7 +104,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
                 }
             });
             return toolbarDataBind;
-        } else {
+        } catch (NullPointerException nullPointerException) {
+            nullPointerException.printStackTrace();
             return null;
         }
     }

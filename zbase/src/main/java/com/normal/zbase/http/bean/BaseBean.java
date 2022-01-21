@@ -1,8 +1,6 @@
 package com.normal.zbase.http.bean;
 
 
-import com.normal.zbase.http.client.ApiConfig;
-
 public class BaseBean {
 
     protected String code;

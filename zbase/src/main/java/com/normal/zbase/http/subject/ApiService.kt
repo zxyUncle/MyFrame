@@ -1,10 +1,7 @@
-package com.normal.zbase.http.client
+package com.normal.zbase.http.subject
 
-import com.normal.zbase.http.bean.BaseBean
 import com.normal.zbase.http.bean.LoginResultBean
 import io.reactivex.Flowable
-import io.reactivex.Observable
-import okhttp3.ResponseBody
 import retrofit2.http.*
 
 /**
