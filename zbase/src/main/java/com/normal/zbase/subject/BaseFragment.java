@@ -151,7 +151,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     }
 
 
-    protected ToolbarLayoutBinding getCustomToolbarLayoutBinding(View view) {
+    protected ToolbarLayoutBinding getToolbarLayoutBinding(View view) {
         return DataBindingUtil.bind(view.findViewById(R.id.custom_toolbar));
     }
 

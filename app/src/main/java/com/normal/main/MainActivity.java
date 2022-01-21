@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        setToolbarTitle("Title");
         mDataBind.setPage(this);
     }
 
@@ -49,12 +50,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         map.put("channel", "wzsz");
         map.put("system", "customer");
         map.put("expiry", "-1");
-        ApiManager.enqueue(apiService().accountLogin(map), getActivity())
+        ApiManager.execute(apiService().accountLogin(map), getActivity())
                 .subscribe(new ApiSubscriber<LoginResultBean>() {
                     @Override
                     protected void onResponse(LoginResultBean baseBean, boolean isSucc) {
                         super.onResponse(baseBean, isSucc);
-                        Log.e("zxy", isSucc + "");
                     }
 
                     @Override
@@ -62,8 +62,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         super.onErrorHandle(exception);
                     }
                 });
-        Log.e("zxy", "测试");
-
 
     }
 }

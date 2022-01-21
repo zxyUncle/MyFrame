@@ -21,12 +21,14 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
 /**
  * Created by zsf on 2022/1/20 11:39
  * *******************
- *    BaseActivity
+ * BaseActivity
  * *******************
  */
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity implements
         View.OnClickListener {
     protected T mDataBind;
+    protected ToolbarLayoutBinding toolbarDataBind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     public void onClick(View v) {
     }
 
-    public BaseActivity<T> getActivity(){
+    public BaseActivity<T> getActivity() {
         return this;
     }
 
@@ -75,16 +77,40 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     /**
      * 初始化view
      */
-    protected void initView(Bundle savedInstanceState) {}
+    protected void initView(Bundle savedInstanceState) {
+        getToolbarLayoutBinding();
+    }
 
-    protected void init(){}
+    protected void init() {
+    }
 
-    protected ApiService apiService(){
+    protected ApiService apiService() {
         return ApiManager.apiService();
     }
 
-    protected ToolbarLayoutBinding getCustomToolbarLayoutBinding(View view) {
-        return DataBindingUtil.bind(view.findViewById(R.id.custom_toolbar));
+    protected void setToolbarTitle(String title) {
+        if (toolbarDataBind != null) {
+            toolbarDataBind.title.setText(title);
+        }
+    }
+
+    protected boolean hideToolbar() {
+        return false;
+    }
+
+    protected ToolbarLayoutBinding getToolbarLayoutBinding() {
+        if (!hideToolbar()) {
+            toolbarDataBind = DataBindingUtil.bind(mDataBind.getRoot().findViewById(R.id.toolbar));
+            toolbarDataBind.left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+            return toolbarDataBind;
+        } else {
+            return null;
+        }
     }
 
 }

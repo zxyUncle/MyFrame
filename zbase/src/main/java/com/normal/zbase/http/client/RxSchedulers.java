@@ -13,11 +13,6 @@ public class RxSchedulers {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static <T> FlowableTransformer<T, T> main() {
-        return upstream -> upstream.subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
     public static <T> FlowableTransformer<T, T> io() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
