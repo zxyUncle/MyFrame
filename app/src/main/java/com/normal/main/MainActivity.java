@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         map.put("system", "customer");
         map.put("expiry", "-1");
         ApiManager.execute(apiService().accountLogin(map), getActivity())
-                .subscribe(new ApiSubscriber<LoginResultBean>() {
+                .subscribe(new ApiSubscriber<LoginResultBean>(getActivity(),true) {
                     @Override
                     protected void onResponse(LoginResultBean baseBean, boolean isSucc) {
                         super.onResponse(baseBean, isSucc);
