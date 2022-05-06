@@ -1,5 +1,6 @@
 package com.normal.zbase.http.subject
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.GsonBuilder
 import com.normal.zbase.BuildConfig
@@ -46,7 +47,17 @@ object ApiManager {
             .writeTimeout(20, TimeUnit.SECONDS)
             .connectTimeout(20, TimeUnit.SECONDS)
         if (BuildConfig.DEBUG) { //正式环境禁用网络日志
-            builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            var loggingInterceptor = HttpLoggingInterceptor {
+                if (BuildConfig.DEBUG) {
+                    try {
+                        Log.e("HTTP", it)
+                    } catch (e: Exception) {
+                        e.printStackTrace();
+                        Log.e("HTTP", it)
+                    }
+                }
+            }.setLevel(HttpLoggingInterceptor.Level.BODY)
+            builder.addInterceptor(loggingInterceptor)
         }
         val okHttpClient: OkHttpClient = builder.addInterceptor(HeaderInterceptor()).build()
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create()
