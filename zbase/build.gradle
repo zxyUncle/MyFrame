@@ -67,4 +67,6 @@ dependencies {
     api rootProject.ext.dependencies["xlog"]
     api rootProject.ext.dependencies["DialogDemo"]
     api rootProject.ext.dependencies["kprogresshud"]
+    api rootProject.ext.dependencies["lifecycleScope"]
+    api rootProject.ext.dependencies["viewModelScope"]
 }

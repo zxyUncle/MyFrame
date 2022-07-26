@@ -43,6 +43,8 @@ ext {
             "gson"                         : 'com.google.code.gson:gson:2.8.5',
             "DialogDemo"                   : 'com.github.zxyUncle:DialogDemo:1.1.27',
             "kprogresshud"                 : 'com.kaopiz:kprogresshud:1.0.2',
+            "lifecycleScope"               : 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1',
+            "viewModelScope"               : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1',
 
     ]
 

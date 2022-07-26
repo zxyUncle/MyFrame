@@ -2,6 +2,7 @@
 @file:JvmMultifileClass
 package com.normal.zbase.utils.extend
 
+import android.app.Activity
 import kotlinx.coroutines.*
 
 /**
@@ -22,7 +23,7 @@ import kotlinx.coroutines.*
  * @param error 异常返回
  * @return 可操作协程 job.cancelAndJoin()
  */
-fun <T> launchIOToMain(
+fun <T> Activity.launchIOToMain(
     block:  suspend CoroutineScope.() -> T,
     callback:(T) -> Unit,
     error: ((Exception) -> Unit) = {}
