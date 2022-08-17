@@ -17,7 +17,7 @@ object ApiConfig {
 
     const val CODE_NO_NETWORK = "-10001"
 
-    const val CODE_TOKEN_INVALID = "40001"
+    const val CODE_TOKEN_INVALID = "40001" //token 失效
 
     //静态设置HOST
     private var HOST_LIST = mutableMapOf(

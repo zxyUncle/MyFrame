@@ -14,7 +14,7 @@ import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.http.subject.ApiManager;
 import com.normal.zbase.http.subject.ApiService;
-import com.normal.zbase.manager.ActivityManager;
+import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.event.EventBusUtils;
 import com.normal.zbase.utils.tools.ApplicationUtils;
 
@@ -32,7 +32,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityManager.getActivityManager().addActivity(this);
+        ActivityStackManager.getActivityManager().addActivity(this);
         init();
         int resID = getLayoutResID();
         if (resID != -1 && resID != 0) {
@@ -53,7 +53,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.unregister(this);
         }
-        ActivityManager.getActivityManager().removeActivity(this);
+        ActivityStackManager.getActivityManager().removeActivity(this);
         if (mDataBind != null) mDataBind.unbind();
     }
 

@@ -9,19 +9,19 @@ import java.util.Stack;
  * *******************
  *    activity栈管理
  */
-public class ActivityManager {
+public class ActivityStackManager {
     private static Stack<AppCompatActivity> activityStack;
-    private static ActivityManager instance;
+    private static ActivityStackManager instance;
 
-    private ActivityManager() {
+    private ActivityStackManager() {
     }
 
     /**
      * 单一实例
      */
-    public static ActivityManager getActivityManager() {
+    public static ActivityStackManager getActivityManager() {
         if (instance == null) {
-            instance = new ActivityManager();
+            instance = new ActivityStackManager();
         }
         return instance;
     }
@@ -40,8 +40,10 @@ public class ActivityManager {
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public AppCompatActivity currentActivity() {
-        AppCompatActivity activity = activityStack.lastElement();
-        return activity;
+        if (activityStack.size()>0)
+            return activityStack.lastElement();
+        else
+            return null;
     }
 
     /**

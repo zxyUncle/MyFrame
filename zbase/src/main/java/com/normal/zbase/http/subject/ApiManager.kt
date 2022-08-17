@@ -4,14 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.GsonBuilder
 import com.normal.zbase.BuildConfig
-import com.normal.zbase.http.interceptor.BaseUrlInterceptor
 import com.normal.zbase.http.interceptor.HeaderInterceptor
 import com.normal.zbase.http.utils.NullOnEmptyConverterFactory
 import com.normal.zbase.http.utils.Rxlifecycle
 import com.normal.zbase.utils.tools.ApplicationUtils
 import com.uber.autodispose.FlowableSubscribeProxy
 import io.reactivex.Flowable
-import okhttp3.*
+import okhttp3.Cache
+import okhttp3.JavaNetCookieJar
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit
 object ApiManager {
     @JvmStatic
     lateinit var mRetrofit: Retrofit
-    lateinit var api:ApiService
+    lateinit var api: ApiService
 
     init {
         initRetrofit()
@@ -38,25 +39,24 @@ object ApiManager {
 
     private fun initRetrofit() {
         val cache =
-            Cache(File(ApplicationUtils.context().cacheDir, "http_cache"), 1024 * 1024 * 100)
+                Cache(File(ApplicationUtils.context().cacheDir, "http_cache"), 1024 * 1024 * 100)
         val cookieManager = CookieManager()
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-            .cache(cache)
-            .cookieJar(JavaNetCookieJar(cookieManager))
-            .readTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(20, TimeUnit.SECONDS)
-            .connectTimeout(20, TimeUnit.SECONDS)
-        builder.addInterceptor(BaseUrlInterceptor())
+                .cache(cache)
+                .cookieJar(JavaNetCookieJar(cookieManager))
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
         builder.addInterceptor(HeaderInterceptor())
         if (BuildConfig.DEBUG) { //正式环境禁用网络日志
             var loggingInterceptor = HttpLoggingInterceptor {
                 if (BuildConfig.DEBUG) {
                     try {
-                        Log.e("HTTP", it)
+                        Log.i("HTTP", it)
                     } catch (e: Exception) {
                         e.printStackTrace();
-                        Log.e("HTTP", it)
+                        Log.i("HTTP", it)
                     }
                 }
             }.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -65,17 +65,17 @@ object ApiManager {
         val okHttpClient: OkHttpClient = builder.build()
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create()
         mRetrofit = Retrofit.Builder()
-            .client(okHttpClient)
-            .addConverterFactory(NullOnEmptyConverterFactory())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(ApiConfig.getHostUrl())
-            .build()
+                .client(okHttpClient)
+                .addConverterFactory(NullOnEmptyConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(ApiConfig.getHostUrl())
+                .build()
         api = apiService()
     }
 
     @JvmStatic
-      fun apiService(): ApiService {
+    fun apiService(): ApiService {
         return mRetrofit.create(ApiService::class.java)
     }
 
@@ -84,12 +84,12 @@ object ApiManager {
      */
     @JvmStatic
     fun <T> execute(
-        flowable:Flowable<T>,
-        owner: LifecycleOwner
+            flowable: Flowable<T>,
+            owner: LifecycleOwner
     ): FlowableSubscribeProxy<T> {
         return flowable
-            .compose(RxSchedulers.io())
-            .`as`(Rxlifecycle.bind(owner));
+                .compose(RxSchedulers.io())
+                .`as`(Rxlifecycle.bind(owner));
     }
 
     /**
@@ -97,12 +97,12 @@ object ApiManager {
      */
     @JvmStatic
     fun <T> enqueue(
-        flowable:Flowable<T>,
-        owner: LifecycleOwner
+            flowable: Flowable<T>,
+            owner: LifecycleOwner
     ): FlowableSubscribeProxy<T> {
         return flowable
-            .compose(RxSchedulers.io_main())
-            .`as`(Rxlifecycle.bind(owner));
+                .compose(RxSchedulers.io_main())
+                .`as`(Rxlifecycle.bind(owner));
     }
 
 }

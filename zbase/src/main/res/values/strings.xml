@@ -1,3 +1,6 @@
 <resources>
     <string name="refresh_header_loading">加载中...</string>
+    <string name="network_no">网路情况不太好</string>
+    <string name="network_no_message">网络连接超时\n请检查您的网络状态</string>
+
 </resources>

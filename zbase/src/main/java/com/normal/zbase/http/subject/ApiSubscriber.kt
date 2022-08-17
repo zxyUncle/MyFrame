@@ -1,21 +1,33 @@
 package com.normal.zbase.http.subject
 
 import android.content.Context
+import android.os.UserManager
+import androidx.appcompat.app.AppCompatActivity
+import com.alibaba.android.arouter.launcher.ARouter
+import com.normal.zbase.R
+import com.normal.zbase.arouter.RouterConstants
 import com.normal.zbase.http.exception.APIException
 import com.normal.zbase.utils.hideLoading
 import com.normal.zbase.utils.showLoad
+import com.normal.zbase.utils.tools.ApplicationUtils
+import com.zxy.zxydialog.TToast
 import io.reactivex.subscribers.ResourceSubscriber
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-
+/**
+ * Created by zsf on 2022/8/17 14:58
+ * *******************
+ *    处理器
+ * *******************
+ */
 abstract class ApiSubscriber<T> @JvmOverloads constructor(
-    private val mContext: Context? = null,
-    isShowDialog: Boolean = false, //    private DialogHelper mDialogHelper;
-    private val isShowLogin: Boolean = false,
-    private val isShowNoNetwork: Boolean = false
+        private val mContext: AppCompatActivity? = null,
+        isShowDialog: Boolean = false, //    private DialogHelper mDialogHelper;
+        private val isShowLogin: Boolean = false,
+        private val isShowNoNetwork: Boolean = false
 ) : ResourceSubscriber<T>() {
 
     override fun onStart() {
@@ -63,20 +75,27 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
         }
     }
 
-    fun accept(t: Throwable): APIException? {
+    private fun accept(t: Throwable): APIException? {
         return try {
-            if (t is APIException) {
-                t as APIException
-            } else if (t is SocketTimeoutException) {
-                APIException(ApiConfig.CODE_NO_NETWORK, SOCKET_TIME_OUT_EXCEPTION)
-            } else if (t is ConnectException) {
-                APIException(ApiConfig.CODE_NO_NETWORK, CONNECT_EXCEPTION)
-            } else if (t is UnknownHostException) {
-                APIException(ApiConfig.CODE_NO_NETWORK, UNKNOWN_HOST_EXCEPTION)
-            } else if (t is HttpException) {
-                APIException((t as HttpException).code(), t.message)
-            } else {
-                APIException(ApiConfig.CODE_UNKNOWN, t.message)
+            when (t) {
+                is APIException -> {
+                    t
+                }
+                is SocketTimeoutException -> {
+                    APIException(ApiConfig.CODE_NO_NETWORK, SOCKET_TIME_OUT_EXCEPTION)
+                }
+                is ConnectException -> {
+                    APIException(ApiConfig.CODE_NO_NETWORK, CONNECT_EXCEPTION)
+                }
+                is UnknownHostException -> {
+                    APIException(ApiConfig.CODE_NO_NETWORK, UNKNOWN_HOST_EXCEPTION)
+                }
+                is HttpException -> {
+                    APIException(t.code(), t.message)
+                }
+                else -> {
+                    APIException(ApiConfig.CODE_UNKNOWN, t.message)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -85,32 +104,31 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
     }
 
     protected open fun onResponse(t: T, isSucc: Boolean) {}
+
     protected open fun onErrorHandle(exception: APIException?) {
         try {
-//            if (isShowLogin && exception.isTokenInvalid()) {
+            if (isShowLogin && exception?.isTokenInvalid == true) {
 //                UserManager.getInstance().logout();
-//            } else if (isShowNoNetwork && exception.isNoNetwork()) {
+            } else if (isShowNoNetwork && exception?.isNoNetwork == true) {
+                TToast.show(ApplicationUtils.context().resources.getString(R.string.network_no))
 //                ARouter.getInstance().build(RouterConstants.Path.BASE_CONTAINER)
 //                        .withString(RouterConstants.KV.PAGE_PATH, RouterConstants.Path.BASE_NO_NETWORK)
-//                        .navigation();
-//            } else if (mContext != null) {
-//                ToastUtil.show(mContext, exception.getMessage());
-//            }
+//                        .navigation()
+            } else if (mContext != null) {
+                exception.let {
+                    TToast.show(exception?.message)
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    protected fun onCompleteHandle() {}
+    private fun onCompleteHandle() {}
 
     companion object {
-        private const val SOCKET_TIME_OUT_EXCEPTION = "网络连接超时\n请检查您的网络状态"
-        private const val CONNECT_EXCEPTION = "网络连接异常\n请检查您的网络状态"
-        private const val UNKNOWN_HOST_EXCEPTION = "网络异常\n请检查您的网络状态"
-    }
-
-    init {
-        if (isShowDialog && mContext != null) {
-        }
+        private  val SOCKET_TIME_OUT_EXCEPTION = ApplicationUtils.context().resources.getString(R.string.network_no_message)
+        private  val CONNECT_EXCEPTION = ApplicationUtils.context().resources.getString(R.string.network_no_message)
+        private  val UNKNOWN_HOST_EXCEPTION = ApplicationUtils.context().resources.getString(R.string.network_no_message)
     }
 }

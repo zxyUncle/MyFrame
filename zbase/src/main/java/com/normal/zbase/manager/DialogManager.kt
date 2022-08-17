@@ -11,7 +11,7 @@ import com.zxy.zxydialog.AlertDialogUtils
 object DialogManager {
     //默认样式弹出框
     fun normal(title:String,message:String){
-        AlertDialogUtils.build(ActivityManager.getActivityManager().currentActivity())
+        AlertDialogUtils.build(ActivityStackManager.getActivityManager().currentActivity())
             .setValues(title,message)
             .show()
     }

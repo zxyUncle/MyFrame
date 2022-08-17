@@ -1,9 +1,11 @@
 package com.normal.zbase.http.subject;
 
-import com.normal.zbase.http.build.PostHttpRequestServiceImp;
+import com.normal.zbase.http.subject.service.imp.PostHttpServiceImp;
 
 public class ApiFoctory {
-    public static PostHttpRequestServiceImp post() {
-        return new PostHttpRequestServiceImp();
+
+
+    public static PostHttpServiceImp post(String path) {
+        return new PostHttpServiceImp(path);
     }
 }
