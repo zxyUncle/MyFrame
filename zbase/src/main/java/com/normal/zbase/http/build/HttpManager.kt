@@ -1,17 +1,17 @@
-package com.normal.zbase.http.subject
+package com.normal.zbase.http.build
 
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import com.google.gson.GsonBuilder
 import com.normal.zbase.BuildConfig
 import com.normal.zbase.http.interceptor.BaseUrlInterceptor
 import com.normal.zbase.http.interceptor.HeaderInterceptor
+import com.normal.zbase.http.subject.ApiConfig
+import com.normal.zbase.http.subject.ApiManager
 import com.normal.zbase.http.utils.NullOnEmptyConverterFactory
-import com.normal.zbase.http.utils.Rxlifecycle
 import com.normal.zbase.utils.tools.ApplicationUtils
-import com.uber.autodispose.FlowableSubscribeProxy
-import io.reactivex.Flowable
-import okhttp3.*
+import okhttp3.Cache
+import okhttp3.JavaNetCookieJar
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,20 +22,12 @@ import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by zsf on 2022/1/17 16:54
- * *******************
- *    网路请求
- * *******************
+ * Created by zsf on 2022/8/17 9:49
+ * ******************************************
+ * *
+ * ******************************************
  */
-object ApiManager {
-    @JvmStatic
-    lateinit var mRetrofit: Retrofit
-    lateinit var api:ApiService
-
-    init {
-        initRetrofit()
-    }
-
+public class HttpManager {
     private fun initRetrofit() {
         val cache =
             Cache(File(ApplicationUtils.context().cacheDir, "http_cache"), 1024 * 1024 * 100)
@@ -47,8 +39,6 @@ object ApiManager {
             .readTimeout(20, TimeUnit.SECONDS)
             .writeTimeout(20, TimeUnit.SECONDS)
             .connectTimeout(20, TimeUnit.SECONDS)
-        builder.addInterceptor(BaseUrlInterceptor())
-        builder.addInterceptor(HeaderInterceptor())
         if (BuildConfig.DEBUG) { //正式环境禁用网络日志
             var loggingInterceptor = HttpLoggingInterceptor {
                 if (BuildConfig.DEBUG) {
@@ -62,47 +52,17 @@ object ApiManager {
             }.setLevel(HttpLoggingInterceptor.Level.BODY)
             builder.addInterceptor(loggingInterceptor)
         }
+        builder.addInterceptor(BaseUrlInterceptor())
+        builder.addInterceptor(HeaderInterceptor())
         val okHttpClient: OkHttpClient = builder.build()
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create()
-        mRetrofit = Retrofit.Builder()
+        ApiManager.mRetrofit = Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(NullOnEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(ApiConfig.getHostUrl())
             .build()
-        api = apiService()
+        ApiManager.api = ApiManager.apiService()
     }
-
-    @JvmStatic
-      fun apiService(): ApiService {
-        return mRetrofit.create(ApiService::class.java)
-    }
-
-    /**
-     * 同步
-     */
-    @JvmStatic
-    fun <T> execute(
-        flowable:Flowable<T>,
-        owner: LifecycleOwner
-    ): FlowableSubscribeProxy<T> {
-        return flowable
-            .compose(RxSchedulers.io())
-            .`as`(Rxlifecycle.bind(owner));
-    }
-
-    /**
-     * 异步
-     */
-    @JvmStatic
-    fun <T> enqueue(
-        flowable:Flowable<T>,
-        owner: LifecycleOwner
-    ): FlowableSubscribeProxy<T> {
-        return flowable
-            .compose(RxSchedulers.io_main())
-            .`as`(Rxlifecycle.bind(owner));
-    }
-
 }

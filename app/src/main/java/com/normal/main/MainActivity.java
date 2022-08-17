@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.normal.main.databinding.ActivityMainBinding;
 import com.normal.zbase.http.bean.LoginResultBean;
+import com.normal.zbase.http.subject.ApiFoctory;
 import com.normal.zbase.http.subject.ApiManager;
 import com.normal.zbase.http.subject.ApiSubscriber;
 import com.normal.zbase.http.exception.APIException;
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setToolbarTitle("Title");
+//        setToolbarTitle("Title");
         mDataBind.setPage(this);
         adapter.setNewInstance(list);
     }
