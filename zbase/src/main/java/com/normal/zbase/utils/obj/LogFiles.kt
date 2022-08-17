@@ -39,6 +39,11 @@ object LogFiles {
     fun i(msg: String) {
         XLog.i(msg)
     }
+
+    @JvmStatic
+    fun i(e: Exception) {
+        XLog.i(e)
+    }
     @JvmStatic
     fun json(obj: Any) {
         val toJson = Gson().toJson(obj)

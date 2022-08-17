@@ -1,26 +1,21 @@
 package com.normal.main;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.normal.main.databinding.ActivityMainBinding;
-import com.normal.zbase.http.bean.BaseResult;
+import com.normal.zbase.event.BindEventBus;
+import com.normal.zbase.event.MessageEventBean;
 import com.normal.zbase.http.bean.LoginResultBean;
 import com.normal.zbase.http.subject.ApiConfig;
 import com.normal.zbase.http.subject.ApiFoctory;
-import com.normal.zbase.http.subject.ApiManager;
 import com.normal.zbase.http.subject.ApiSubscriber;
-import com.normal.zbase.http.exception.APIException;
 import com.normal.zbase.subject.BaseActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
 
-import org.reactivestreams.Subscriber;
+import org.greenrobot.eventbus.Subscribe;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +27,7 @@ import java.util.Map;
  * 主入口
  * *******************
  */
+@BindEventBus
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private BaseRecyclerViewAdapter<String> adapter = new BaseRecyclerViewAdapter<>(R.layout.adapter_item);
     private List list = Arrays.asList("o1", "o2");
@@ -56,24 +52,32 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         map.put("channel", "wzsz");
         map.put("system", "customer");
         map.put("expiry", "-1");
-
         ApiFoctory
                 .post(HttpUrl.login)
-                .host(ApiConfig.INSTANCE.getHostUrl("139")) //可选
-                .bindLifecycleOwner(this)   //可选
+                /**  可选项  start **/
+                .host(ApiConfig.INSTANCE.getHostUrl("139")) //可选 重置HostUrl
+                .bindLifecycleOwner(this)   //可选 绑定指定的Actiivt，不填默认绑定最上层activity生命周期
+                .isForm(false)              //可选，是否是表单提交，默认false
+                /**  可选项   end **/
                 .body(map)
                 .execute(LoginResultBean.class)
                 .subscribe(new ApiSubscriber<LoginResultBean>(getActivity()) {
                     @Override
-                    protected void onResponse(LoginResultBean loginResultBean, boolean isSucc) {
-                        super.onResponse(loginResultBean, isSucc);
+                    protected void onSuccess(LoginResultBean loginResultBean) {
+                        super.onSuccess(loginResultBean);
+                        Log.e("zxy",loginResultBean.getCode());
                     }
 
                     @Override
-                    protected void onErrorHandle(@Nullable APIException exception) {
-                        super.onErrorHandle(exception);
+                    protected void onFail(LoginResultBean loginResultBean) {
+                        super.onFail(loginResultBean);
+                        Log.e("zxy",loginResultBean.getCode());
                     }
                 });
+    }
+
+    @Subscribe
+    public void onEvnet(MessageEventBean eventBean){
 
     }
 }

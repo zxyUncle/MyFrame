@@ -13,7 +13,7 @@ import com.normal.zbase.R;
 import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.http.subject.ApiManager;
-import com.normal.zbase.http.subject.ApiService;
+import com.normal.zbase.http.subject.ApiHttp;
 import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.event.EventBusUtils;
 import com.normal.zbase.utils.tools.ApplicationUtils;
@@ -84,7 +84,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected void init() {
     }
 
-    protected ApiService apiService() {
+    protected ApiHttp apiService() {
         return ApiManager.apiService();
     }
 

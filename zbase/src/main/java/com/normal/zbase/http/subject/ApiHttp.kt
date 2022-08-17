@@ -12,24 +12,7 @@ import retrofit2.http.*
  * * 接口
  * ******************************************
  */
-public interface ApiService {
-    //账号密码登录
-    @POST("cloudpick/rest/admin/api/v1/logon/account/user/login")
-    fun accountLogin(@Body arrayMap: Map<String, String>): Flowable<LoginResultBean>
-
-    /**
-     * GET请求
-     *
-     * @param headers 从我个人的角度上来说，是不希望增加这个Header的,请求头信息
-     * @param path 路径地址
-     * @param params url的encode请求参数
-     */
-    @GET("{path}")
-    fun get(
-        @HeaderMap headers: Map<String, String>,
-        @Path(value = "path", encoded = true) path: String,
-        @QueryMap params: Map<String, @JvmSuppressWildcards Any>
-    ): Flowable<ResponseBody>
+public interface ApiHttp {
 
     /**
      * get请求的外沿封装
@@ -37,11 +20,11 @@ public interface ApiService {
      * @param url 完整的请求链接
      * @param params queries相关的参数
      */
-    @GET
-    fun get(
-        @Url url: String,
-        @QueryMap params: Map<String, @JvmSuppressWildcards Any>
-    ): Flowable<ResponseBody>
+//    @GET
+//    fun get(
+//        @Url url: String,
+//        @QueryMap params: Map<String, @JvmSuppressWildcards Any>
+//    ): Flowable<ResponseBody>
 
     /**
      * POST请求
@@ -53,16 +36,30 @@ public interface ApiService {
      * @param params url的encode请求参数
      * @param body 请求的数据集合
      */
-    @POST("{path}")
-    fun post(
-        @HeaderMap headers: Map<String, String>,
-        @Path(value = "path", encoded = true) path: String,
-        @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
-        @Body body: Map<String, @JvmSuppressWildcards Any>
+//    @POST("{path}")
+//    fun post(
+//        @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
+//        @Path(value = "path", encoded = true) path: String,
+//        @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
+//        @Body body: Map<String, @JvmSuppressWildcards Any>
+//    ): Flowable<ResponseBody>
+
+    /**
+     * GET请求
+     *
+     * @param headers 从我个人的角度上来说，是不希望增加这个Header的,请求头信息
+     * @param path 路径地址
+     * @param params url的encode请求参数
+     */
+    @GET("{path}")
+    fun get(
+            @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
+            @Path(value = "path", encoded = true) path: String,
+            @QueryMap params: Map<String, @JvmSuppressWildcards Any>
     ): Flowable<ResponseBody>
 
     /**
-     * post请求中参数是以string的形式透传的情况
+     * post请求中参数是以对象传递
      *
      * @param headers 请求头信息
      * @param path 路径地址
@@ -71,7 +68,7 @@ public interface ApiService {
      */
     @POST("{path}")
     fun post(
-        @HeaderMap headers: Map<String, String>,
+        @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
         @Path(value = "path", encoded = true) path: String,
         @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
         @Body body: Any
@@ -84,12 +81,12 @@ public interface ApiService {
      * @param params query请求的附带参数集合
      * @param body 请求的body体，支持数据类型的透传
      */
-    @POST
-    fun post(
-        @Url url: String,
-        @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
-        @Body body: Any
-    ): Flowable<ResponseBody>
+//    @POST
+//    fun post(
+//        @Url url: String,
+//        @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
+//        @Body body: Any
+//    ): Flowable<ResponseBody>
 
     /**
      * post请求参数确认为url的完整链接的情况
@@ -98,12 +95,12 @@ public interface ApiService {
      * @param params query请求的附带参数集合
      * @param body 具体的请求map集合
      */
-    @POST
-    fun post(
-        @Url url: String,
-        @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
-        @Body body: Map<String, @JvmSuppressWildcards Any>
-    ): Flowable<ResponseBody>
+//    @POST
+//    fun post(
+//        @Url url: String,
+//        @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
+//        @Body body: Map<String, @JvmSuppressWildcards Any>
+//    ): Flowable<ResponseBody>
 
     /**
      * POST请求
@@ -118,7 +115,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("{path}")
     fun formPost(
-        @HeaderMap headers: Map<String, String>,
+        @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
         @Path(value = "path", encoded = true) path: String,
         @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
         @FieldMap forms: Map<String, @JvmSuppressWildcards Any>

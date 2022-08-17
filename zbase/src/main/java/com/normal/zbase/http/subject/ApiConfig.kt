@@ -24,16 +24,6 @@ object ApiConfig {
         "186" to BaseHostUrl("http://10.10.12.186/"),
         "139" to BaseHostUrl("http://10.10.10.139/"),
     )
-
-    /**
-     * 只做增加，不能做修改，防止错误的改变
-     */
-    fun addHostList(key: String, value: BaseHostUrl) {
-        if (!HOST_LIST.containsKey(key)) {
-            HOST_LIST[key] = value
-        }
-    }
-
     /**
      * 获取主机地址
      * 方法多态，可传可不传参数
@@ -49,6 +39,15 @@ object ApiConfig {
                 HOST_LIST["186"]?.hostUrl ?: ""
             else
                 HOST_LIST["139"]?.hostUrl ?: ""
+        }
+    }
+
+    /**
+     * 只做增加，不能做修改，防止错误的改变
+     */
+    fun addHostList(key: String, value: BaseHostUrl) {
+        if (!HOST_LIST.containsKey(key)) {
+            HOST_LIST[key] = value
         }
     }
 

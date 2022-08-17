@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 object ApiManager {
     @JvmStatic
     lateinit var mRetrofit: Retrofit
-    lateinit var api: ApiService
+    lateinit var api: ApiHttp
 
     init {
         initRetrofit()
@@ -75,8 +75,8 @@ object ApiManager {
     }
 
     @JvmStatic
-    fun apiService(): ApiService {
-        return mRetrofit.create(ApiService::class.java)
+    fun apiService(): ApiHttp {
+        return mRetrofit.create(ApiHttp::class.java)
     }
 
     /**

@@ -1,10 +1,8 @@
 package com.normal.zbase.http.bean;
 
-
-public class BaseBean {
-
-    protected String code;
-    protected String message;
+public class BaseResponse {
+    private String code;
+    private String message;
 
     public String getCode() {
         return code;
@@ -21,4 +19,5 @@ public class BaseBean {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

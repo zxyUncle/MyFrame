@@ -21,5 +21,5 @@ val gson: Gson by lazy {
  * 或者
  *      gson.fromJson<ArticleData>("jsonString")
  */
-inline fun <reified T> Gson.fromJson(json: String): T =
+inline fun <reified T> Gson.from(json: String): T =
     fromJson(json, T::class.java)
