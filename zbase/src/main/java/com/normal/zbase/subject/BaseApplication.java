@@ -38,7 +38,8 @@ public abstract class BaseApplication extends Application {
     }
 
     protected void initConfig() {
-        CrashHandler.getInstance().init();//application 中初始化
+        if (!BuildConfig.DEBUG)
+            CrashHandler.getInstance().init();//application 中初始化
     }
 
     protected void destroySDK() {

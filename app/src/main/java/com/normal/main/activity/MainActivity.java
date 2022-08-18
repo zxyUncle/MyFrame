@@ -54,6 +54,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
     public void onPost(View view) {
+        String[] a = null;
+        Log.e("zxy",a[0]);
 //        int a=  0/0; //全局异常拦截
         Map<String, Object> map = new HashMap<>();
         map.put("userName", "11111111112");
