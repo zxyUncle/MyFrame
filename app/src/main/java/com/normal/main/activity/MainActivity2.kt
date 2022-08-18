@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.normal.main.R
 import com.normal.zbase.http.bean.LoginResultDto
 import com.normal.zbase.manager.ActivityStackManager
+import com.normal.zbase.utils.extend.launchIO
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,13 +23,11 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         ActivityStackManager.getActivityManager().addActivity(this)
-        lifecycleScope.launch {
-
+        launchIO {
             val list: List<LoginResultDto> = ArrayList()
-            list.asFlow().collect { Collectors.toMap(Function { obj: LoginResultDto -> obj.userId }, Function.identity(),
-                    BinaryOperator { key1: LoginResultDto, key2: LoginResultDto? -> key1 })
-            }
-
+//            list.asFlow().collect { Collectors.toMap(Function { obj: LoginResultDto -> obj.userId }, Function.identity(),
+//                    BinaryOperator { key1: LoginResultDto, key2: LoginResultDto? -> key1 })
+//            }
         }
     }
 

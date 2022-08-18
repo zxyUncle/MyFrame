@@ -2,7 +2,8 @@
 @file:JvmMultifileClass
 package com.normal.zbase.utils.extend
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
 
 /**
@@ -15,6 +16,9 @@ import kotlinx.coroutines.*
 //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
 //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
 
+//"lifecycleScope"               : 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1',
+//"viewModelScope"               : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1',
+
 /**
  * 闭包使用：launchIO({异步},{挂起函数同步主线程},{异常返回，可以省略})
  *
@@ -23,12 +27,12 @@ import kotlinx.coroutines.*
  * @param error 异常返回
  * @return 可操作协程 job.cancelAndJoin()
  */
-fun <T> Activity.launchIOToMain(
+fun <T> AppCompatActivity.launchIOToMain(
     block:  suspend CoroutineScope.() -> T,
     callback:(T) -> Unit,
     error: ((Exception) -> Unit) = {}
 ): Job {
-    return GlobalScope.launch {
+    return lifecycleScope.launch {
         try {
             val data = withContext(Dispatchers.IO) { //协程切换，得到IO协程的泛型结果
                 block()
@@ -47,24 +51,24 @@ fun <T> Activity.launchIOToMain(
 /**
  * 同步主线程View的更新
  */
-fun launchMain(block: () -> Unit):Job {
-    return GlobalScope.launch {
+fun AppCompatActivity.launchMain(block: () -> Unit):Job {
+    return lifecycleScope.launch {
         withContext(Dispatchers.Main) {
             block()
         }
     }
 }
 
-fun launchIO(block: () -> Unit) :Job {
-    return GlobalScope.launch {
+fun AppCompatActivity.launchIO(block: () -> Unit) :Job {
+    return lifecycleScope.launch {
         withContext(Dispatchers.IO) {
             block()
         }
     }
 }
 
-fun launchDefault(block: () -> Unit):Job {
-    return GlobalScope.launch {
+fun AppCompatActivity.launchDefault(block: () -> Unit):Job {
+    return lifecycleScope.launch {
         withContext(Dispatchers.Default) {
             block()
         }

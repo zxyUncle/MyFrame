@@ -9,6 +9,7 @@ import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.normal.zbase.BuildConfig;
+import com.normal.zbase.exceptions.CrashHandler;
 
 public abstract class BaseApplication extends Application {
 
@@ -37,6 +38,7 @@ public abstract class BaseApplication extends Application {
     }
 
     protected void initConfig() {
+        CrashHandler.getInstance().init();//application 中初始化
     }
 
     protected void destroySDK() {

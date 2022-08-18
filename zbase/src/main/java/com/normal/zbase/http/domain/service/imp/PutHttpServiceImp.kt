@@ -18,7 +18,7 @@ import okhttp3.ResponseBody
 /**
  * Created by zsf on 2022/8/16 19:44
  * ******************************************
- * * Post请求
+ * * Put请求
  * ******************************************
  */
 class PutHttpServiceImp(path: String) : HttpRequestService(path) {

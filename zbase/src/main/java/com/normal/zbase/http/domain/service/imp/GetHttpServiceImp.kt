@@ -15,7 +15,7 @@ import okhttp3.ResponseBody
 /**
  * Created by zsf on 2022/8/16 19:44
  * ******************************************
- * *
+ * * Get
  * ******************************************
  */
 class GetHttpServiceImp(path: String) : HttpRequestService(path) {

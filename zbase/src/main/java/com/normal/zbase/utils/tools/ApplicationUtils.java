@@ -60,9 +60,6 @@ public class ApplicationUtils {
             activityThread = method.invoke(null);
 
         } catch (final Exception e) {
-
-            Log.w("zxy", e);
-
         }
 
         return activityThread;

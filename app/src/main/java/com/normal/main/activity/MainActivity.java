@@ -18,6 +18,7 @@ import com.normal.zbase.http.domain.ApiSubscriber;
 import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.subject.BaseActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
+import com.normal.zbase.utils.obj.LoggerUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
     public void onPost(View view) {
+//        int a=  0/0; //全局异常拦截
         Map<String, Object> map = new HashMap<>();
         map.put("userName", "11111111112");
         map.put("password", "111111");
@@ -63,7 +65,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .post(HttpUrl.login)
                 /**  可选项  start **/
                 //可选 重置HostUrl
-                .host(ApiConfig.INSTANCE.getHostUrl("139"))
+                .host("http://10.10.101.39")
                 //可选 绑定指定的Actiivt，不填默绑定最上层栈的activity，置空不绑定生命周期
                 .bindLifecycleOwner(ActivityStackManager.getActivityManager().currentActivity())
                 //可选，是否是表单提交，默认false
@@ -75,13 +77,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     @Override
                     protected void onSuccess(LoginResultDto loginResultDto) {
                         super.onSuccess(loginResultDto);
-                        Log.e("zxy",loginResultDto.getCode());
+                        LoggerUtils.json(loginResultDto);
                     }
 
                     @Override
                     protected void onFail(LoginResultDto loginResultDto) {
                         super.onFail(loginResultDto);
-                        Log.e("zxy",loginResultDto.getCode());
+                        LoggerUtils.json(loginResultDto);
                     }
                 });
     }

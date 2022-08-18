@@ -5,7 +5,7 @@ import com.normal.zbase.R
 import com.normal.zbase.http.exception.APIException
 import com.normal.zbase.manager.ActivityStackManager
 import com.normal.zbase.utils.hideLoading
-import com.normal.zbase.utils.obj.LogFiles
+import com.normal.zbase.utils.obj.LoggerUtils
 import com.normal.zbase.utils.showLoad
 import com.normal.zbase.utils.tools.ApplicationUtils
 import com.zxy.zxydialog.TToast
@@ -39,7 +39,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             if (isShowDialog)
                 mContext.showLoad()
         } catch (e: Exception) {
-            LogFiles.i(e)
+            LoggerUtils.e(e)
             e.printStackTrace()
         }
     }
@@ -69,7 +69,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            LogFiles.i(e)
+            LoggerUtils.e(e)
             onFail(it)
         }
     }
@@ -80,7 +80,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             onErrorHandle(accept(t))
         } catch (e: Exception) {
             e.printStackTrace()
-            LogFiles.i(e)
+            LoggerUtils.e(e)
         }
     }
 
@@ -90,7 +90,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             onCompleteHandle()
         } catch (e: Exception) {
             e.printStackTrace()
-            LogFiles.i(e)
+            LoggerUtils.e(e)
         }
     }
 
@@ -147,7 +147,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            LogFiles.i(e)
+            LoggerUtils.e(e)
         }
     }
 

@@ -14,25 +14,6 @@ import android.util.Log;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        new Z();
-    }
 
-    class  X{
-        Y b = new Y();
-        X(){
-            Log.e("zxy","X");
-        }
-    }
-    class Y{
-        Y(){
-            Log.e("zxy","Y");
-        }
-    }
-
-    public class Z extends X{
-        Y y = new Y();
-        Z(){
-            Log.e("zxy","Z");
-        }
     }
 }

@@ -39,7 +39,7 @@ ext {
             "SmartRefreshLayout"           : 'com.scwang.smart:refresh-layout-kernel:2.0.3',
             "SmartRefreshHeader"           : 'com.scwang.smart:refresh-header-material:2.0.3',
             "SmartRefreshFooter"           : 'com.scwang.smart:refresh-footer-ball:2.0.3',
-            "xlog"                         : 'com.elvishew:xlog:1.6.1',
+            "xlog"                         : 'com.elvishew:xlog:1.10.1',
             "gson"                         : 'com.google.code.gson:gson:2.8.5',
             "DialogDemo"                   : 'com.github.zxyUncle:DialogDemo:1.1.27',
             "kprogresshud"                 : 'com.kaopiz:kprogresshud:1.0.2',

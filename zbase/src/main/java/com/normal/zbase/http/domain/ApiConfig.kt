@@ -19,43 +19,21 @@ object ApiConfig {
 
     const val CODE_TOKEN_INVALID = "40001" //token 失效
 
-    //静态设置HOST
-    private var HOST_LIST = mutableMapOf<String,BaseHostUrlDto>()
+    private var normalHost: String? = null //默认域名
+
+    /**
+     * 设置默认域名，如果未null，就胡使用域名列表中的第一个
+     */
+    fun setNormalHost(normalHost: String?) {
+        this.normalHost = normalHost
+    }
+
     /**
      * 获取主机地址
-     * 方法多态，可传可不传参数
      * 不传参数：依据默认（根据是否Debug）
      * 传参数：依据key得到值
      */
     @JvmOverloads
-    fun getHostUrl(key: String? = null): String {
-        return if (key != null) {
-            HOST_LIST[key]?.hostUrl ?: ""
-        } else {
-             HOST_LIST.map {
-                return it.value.hostUrl?:""
-            }
-            return ""
-        }
-    }
-
-    /**
-     * 增加主机值
-     */
-    fun addHostList(key: String, value: BaseHostUrlDto) {
-        if (!HOST_LIST.containsKey(key)) {
-            HOST_LIST[key] = value
-        }
-    }
-
-    /**
-     * 只增加主机值
-     */
-    fun addHostList(hostMap:LinkedHashMap<String,BaseHostUrlDto>) {
-        hostMap.map {
-            addHostList(it.key,it.value)
-        }
-    }
-
+    fun getHostUrl(url: String? = normalHost) = url
 
 }

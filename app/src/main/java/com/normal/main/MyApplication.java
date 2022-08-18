@@ -12,13 +12,7 @@ public class MyApplication extends BaseApplication {
    protected void initConfig() {
       super.initConfig();
 
-      //初始化域名，第一个是默认域名
-      ApiConfig.INSTANCE.addHostList(new LinkedHashMap<String,BaseHostUrlDto>() {
-         {
-            put("139", new BaseHostUrlDto("http://10.10.10.139/", "渠道ID", "商店ID", "扩展字段"));
-            put("186", new BaseHostUrlDto("http://10.10.12.186/", "渠道ID", "商店ID", "扩展字段"));
-         }
-      });
-
+      //初始化域名,这个东西可以放到其他页面，只要在网络请求之前就行
+      ApiConfig.INSTANCE.setNormalHost("http://10.10.12.186/");
    }
 }

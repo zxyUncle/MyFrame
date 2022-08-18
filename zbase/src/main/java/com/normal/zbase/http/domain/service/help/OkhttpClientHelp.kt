@@ -1,8 +1,8 @@
 package com.normal.zbase.http.domain.service.help
 
-import android.util.Log
 import com.normal.zbase.BuildConfig
 import com.normal.zbase.http.interceptor.HeaderInterceptor
+import com.normal.zbase.utils.obj.LoggerUtils
 import com.normal.zbase.utils.tools.ApplicationUtils
 import okhttp3.Cache
 import okhttp3.JavaNetCookieJar
@@ -37,10 +37,10 @@ object OkhttpClientHelp {
             var loggingInterceptor = HttpLoggingInterceptor {
                 if (BuildConfig.DEBUG) {
                     try {
-                        Log.i("HTTP", it)
+                        LoggerUtils.i(it)
                     } catch (e: Exception) {
-                        e.printStackTrace();
-                        Log.i("HTTP", it)
+                        e.printStackTrace()
+                        LoggerUtils.e(e)
                     }
                 }
             }.setLevel(HttpLoggingInterceptor.Level.BODY)
