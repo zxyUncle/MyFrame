@@ -1,7 +1,7 @@
 package com.normal.zbase.http.exception;
 
 
-import com.normal.zbase.http.subject.ApiConfig;
+import com.normal.zbase.http.domain.ApiConfig;
 
 public class APIException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.normal.zbase.http.subject.service.help
+package com.normal.zbase.http.domain.service.help
 
 import android.util.Log
 import com.normal.zbase.BuildConfig

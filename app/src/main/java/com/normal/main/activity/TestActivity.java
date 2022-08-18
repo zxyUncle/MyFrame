@@ -1,25 +1,20 @@
-package com.normal.main;
+package com.normal.main.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.normal.zbase.http.bean.LoginResultBean;
+import com.normal.main.R;
+import com.normal.zbase.http.bean.LoginResultDto;
 import com.normal.zbase.utils.obj.TimerManager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -38,9 +33,9 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        List<LoginResultBean> list = new ArrayList<>();
+        List<LoginResultDto> list = new ArrayList<>();
 
-        list.stream().collect(Collectors.toMap(LoginResultBean::getUserId, Function.identity(),(key1,key2)->key1));
+        list.stream().collect(Collectors.toMap(LoginResultDto::getUserId, Function.identity(),(key1, key2)->key1));
 
     }
 

@@ -1,12 +1,13 @@
-package com.normal.zbase.http.subject.service.imp
+package com.normal.zbase.http.domain.service.imp
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.reflect.TypeToken
-import com.normal.zbase.http.subject.ApiHttp
-import com.normal.zbase.http.subject.RxSchedulers
-import com.normal.zbase.http.subject.service.HttpRequestService
+import com.normal.zbase.http.domain.ApiHttp
+import com.normal.zbase.http.domain.RxSchedulers
+import com.normal.zbase.http.domain.service.HttpRequestService
 import com.normal.zbase.http.utils.Rxlifecycle
+import com.normal.zbase.manager.ActivityStackManager
 import com.uber.autodispose.FlowableSubscribeProxy
 import io.reactivex.Flowable
 import okhttp3.ResponseBody

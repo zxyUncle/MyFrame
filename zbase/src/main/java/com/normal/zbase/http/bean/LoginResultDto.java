@@ -1,7 +1,7 @@
 package com.normal.zbase.http.bean;
 
 
-public class LoginResultBean extends BaseResponse {
+public class LoginResultDto extends ABaseResponse {
     /**
      * code : 0000
      * token : fad38b28b50e41019cbaaf82c2b3eaa6

@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
+import com.uber.autodispose.ScopeProvider;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 public class Rxlifecycle {
@@ -15,10 +16,11 @@ public class Rxlifecycle {
      * @return
      */
     public static <T> AutoDisposeConverter<T> bind(LifecycleOwner owner, Lifecycle.Event untilEvent) {
-        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, untilEvent));
-    }
+        if (owner!=null){
+            return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, untilEvent));
+        }else{
+            return AutoDispose.autoDisposable(ScopeProvider.UNBOUND);
+        }
 
-    public static <T> AutoDisposeConverter<T> bind(LifecycleOwner owner) {
-        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, Lifecycle.Event.ON_ANY));
     }
 }

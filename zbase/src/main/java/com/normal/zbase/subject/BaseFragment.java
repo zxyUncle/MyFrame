@@ -20,8 +20,6 @@ import com.normal.zbase.R;
 import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.EventBusUtils;
-import com.normal.zbase.http.subject.ApiManager;
-import com.normal.zbase.http.subject.ApiHttp;
 
 /**
  * Created by zsf on 2022/1/20 11:49
@@ -155,7 +153,4 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
         return DataBindingUtil.bind(view.findViewById(R.id.custom_toolbar));
     }
 
-    protected ApiHttp apiService(){
-        return ApiManager.apiService();
-    }
 }

@@ -1,14 +1,16 @@
-package com.normal.zbase.http.subject.service
+package com.normal.zbase.http.domain.service
 
 import android.text.TextUtils
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
-import com.normal.zbase.http.subject.ApiConfig
-import com.normal.zbase.http.subject.service.help.OkhttpClientHelp
+import com.normal.zbase.http.domain.ApiConfig
+import com.normal.zbase.http.domain.service.help.OkhttpClientHelp
 import com.normal.zbase.http.utils.NullOnEmptyConverterFactory
 import com.normal.zbase.manager.ActivityStackManager
+import com.normal.zbase.utils.extend.gson
+import com.uber.autodispose.FlowableSubscribeProxy
 import io.reactivex.functions.Function
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
@@ -30,8 +32,8 @@ abstract class HttpRequestService {
     protected var headers: Map<String, @JvmSuppressWildcards Any> = mapOf() //请求头
     protected var params: Map<String, @JvmSuppressWildcards Any>? = mapOf() //请求参数
 
-    //是否要绑定指定的activity，否则就使用当前最上层的activity
-    protected var bindLifecycleOwner : LifecycleOwner= ActivityStackManager.getActivityManager().currentActivity()
+    //是否要绑定指定的activity,默认使用最上层的activity
+    protected var bindLifecycleOwner : LifecycleOwner?=ActivityStackManager.getActivityManager().currentActivity()
     // 转换的工具
     protected var gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create()
 
@@ -43,7 +45,6 @@ abstract class HttpRequestService {
     abstract fun headers(headers: Map<String, @JvmSuppressWildcards Any>) :HttpRequestService
     abstract fun bindLifecycleOwner(bindLifecycleOwner: LifecycleOwner): HttpRequestService
     abstract fun params(params: Map<String, @JvmSuppressWildcards Any>?): HttpRequestService
-
 
     private fun initRetrofit():Retrofit {
       return  Retrofit.Builder()

@@ -1,14 +1,18 @@
-package com.normal.zbase.http.subject.service.imp
+package com.normal.zbase.http.domain.service.imp
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.reflect.TypeToken
-import com.normal.zbase.http.subject.ApiHttp
-import com.normal.zbase.http.subject.RxSchedulers
-import com.normal.zbase.http.subject.service.HttpRequestService
+import com.normal.zbase.http.domain.ApiHttp
+import com.normal.zbase.http.domain.RxSchedulers
+import com.normal.zbase.http.domain.service.HttpRequestService
 import com.normal.zbase.http.utils.Rxlifecycle
+import com.normal.zbase.manager.ActivityStackManager
+import com.uber.autodispose.AutoDispose
 import com.uber.autodispose.FlowableSubscribeProxy
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import io.reactivex.Flowable
+import kotlinx.coroutines.*
 import okhttp3.ResponseBody
 
 /**
@@ -17,15 +21,15 @@ import okhttp3.ResponseBody
  * * Post请求
  * ******************************************
  */
-class PostHttpServiceImp(path: String) : HttpRequestService(path) {
-    private lateinit var body: Any
+class PutHttpServiceImp(path: String) : HttpRequestService(path) {
+    private var body: Map<String, @JvmSuppressWildcards Any> = mapOf()
     private var isForm: Boolean = false //是否是表单请求
 
     /**
      * 更换主机域名
      * http://10.10.10.10 -> http://10.10.10.11
      */
-    override fun host(host: String): PostHttpServiceImp {
+    override fun host(host: String): PutHttpServiceImp {
         super.host = host
         return this
     }
@@ -33,17 +37,19 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
     /**
      * 请求头
      */
-    override fun headers(headers: Map<String, Any>): PostHttpServiceImp {
+    override fun headers(headers: Map<String, Any>): PutHttpServiceImp {
         super.headers = headers
         return this
     }
 
     /**
-     * 不设置默认使用栈中最上层activity，也可以指定activity
+     * 1、不设置默认使用栈中最上层activity，
+     * 2、也可以指定activity，
+     * 3、置空就是不跟随activity生命周期
      * 绑定activiyt的生命周期
      * @param AppCompatActivity
      */
-    override fun bindLifecycleOwner(bindLifecycleOwner: LifecycleOwner): PostHttpServiceImp {
+    override fun bindLifecycleOwner(bindLifecycleOwner: LifecycleOwner): PutHttpServiceImp {
         super.bindLifecycleOwner = bindLifecycleOwner
         return this
     }
@@ -51,7 +57,7 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
     /**
      * 请求参数
      */
-    override fun params(params: Map<String, @JvmSuppressWildcards Any>?): PostHttpServiceImp {
+    override fun params(params: Map<String, @JvmSuppressWildcards Any>?): PutHttpServiceImp {
         super.params = params
         return this
     }
@@ -59,15 +65,15 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
     /**
      * body Any
      */
-    fun body(body: Any): PostHttpServiceImp {
+    fun body(body: Map<String, @JvmSuppressWildcards Any>): PutHttpServiceImp {
         this.body = body
         return this
     }
 
     /**
-     * body Any
+     * 是否是表单提交
      */
-    fun isForm(isForm: Boolean): PostHttpServiceImp {
+    fun isForm(isForm: Boolean): PutHttpServiceImp {
         this.isForm = isForm
         return this
     }
@@ -79,7 +85,7 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
         return if (isForm) {
             bindFlow(mRetrofit.create(ApiHttp::class.java).formPost(headers, path!!, params!!, body!! as Map<String, @JvmSuppressWildcards Any>), response)
         } else {
-            bindFlow(mRetrofit.create(ApiHttp::class.java).post(headers, path!!, params!!, body!!), response)
+            bindFlow(mRetrofit.create(ApiHttp::class.java).put(headers, path!!, params!!, body!!), response)
         }
     }
 
@@ -87,20 +93,8 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
      * 没有父类的基类，基类本身包含code message
      */
     fun <R> execute(response: TypeToken<R>): FlowableSubscribeProxy<R> {
-        return bindFlow(mRetrofit.create(ApiHttp::class.java).post(headers, path!!, params!!, body!!), response)
+        return bindFlow(mRetrofit.create(ApiHttp::class.java).put(headers, path!!, params!!, body!!), response)
     }
-
-    /**
-     * 继承BaseReslut父类的执行器，基类本身不包含code message
-     */
-//    fun <R> executeBase(response: Class<R>): FlowableSubscribeProxy<BaseResult<R>> {
-//        val from:BaseResult<R> = gson.from<BaseResult<R>>("")
-//        gson.fromJson<BaseResult<R>>(BaseBean::class.java)
-//        val type = object : TypeToken<BaseResult<R?>?>() {}.type
-//        var a = BaseResult<R>
-//
-//        return bindFlowBase(mRetrofit.create(ApiHttp::class.java).post(headers, path!!, params!!, body!!), response)
-//    }
 
 
     private fun <R> bindFlow(flowable: Flowable<ResponseBody>, response: TypeToken<R>): FlowableSubscribeProxy<R> {
@@ -114,7 +108,6 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
                 .compose(RxSchedulers.io_main())
                 .`as`(Rxlifecycle.bind(bindLifecycleOwner, Lifecycle.Event.ON_DESTROY))
     }
-
 
 
 }

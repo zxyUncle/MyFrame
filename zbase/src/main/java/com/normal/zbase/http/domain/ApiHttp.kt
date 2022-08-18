@@ -1,8 +1,6 @@
-package com.normal.zbase.http.subject
+package com.normal.zbase.http.domain
 
-import com.normal.zbase.http.bean.LoginResultBean
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -132,7 +130,7 @@ public interface ApiHttp {
      */
     @PUT("{path}")
     fun put(
-        @HeaderMap headers: Map<String, String>,
+        @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
         @Path("path") path: String,
         @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
         @Body body: Map<String, @JvmSuppressWildcards Any>
@@ -150,7 +148,7 @@ public interface ApiHttp {
     @FormUrlEncoded
     @PUT("{path}")
     fun formPut(
-        @HeaderMap headers: Map<String, String>,
+        @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
         @Path("path") path: String,
         @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
         @Body forms: Map<String, @JvmSuppressWildcards Any>
@@ -165,7 +163,7 @@ public interface ApiHttp {
      */
     @DELETE("{path}")
     fun delete(
-        @HeaderMap headers: Map<String, String>,
+        @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
         @Path(value = "path", encoded = true) path: String,
         @QueryMap params: Map<String, @JvmSuppressWildcards Any>
     ): Flowable<ResponseBody>

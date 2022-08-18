@@ -1,7 +1,7 @@
-package com.normal.zbase.http.subject
+package com.normal.zbase.http.domain
 
 import com.normal.zbase.BuildConfig
-import com.normal.zbase.http.bean.BaseHostUrl
+import com.normal.zbase.http.bean.BaseHostUrlDto
 
 /**
  * *******************
@@ -20,10 +20,7 @@ object ApiConfig {
     const val CODE_TOKEN_INVALID = "40001" //token 失效
 
     //静态设置HOST
-    private var HOST_LIST = mutableMapOf(
-        "186" to BaseHostUrl("http://10.10.12.186/"),
-        "139" to BaseHostUrl("http://10.10.10.139/"),
-    )
+    private var HOST_LIST = mutableMapOf<String,BaseHostUrlDto>()
     /**
      * 获取主机地址
      * 方法多态，可传可不传参数
@@ -35,19 +32,28 @@ object ApiConfig {
         return if (key != null) {
             HOST_LIST[key]?.hostUrl ?: ""
         } else {
-            if (BuildConfig.DEBUG)
-                HOST_LIST["186"]?.hostUrl ?: ""
-            else
-                HOST_LIST["139"]?.hostUrl ?: ""
+             HOST_LIST.map {
+                return it.value.hostUrl?:""
+            }
+            return ""
         }
     }
 
     /**
-     * 只做增加，不能做修改，防止错误的改变
+     * 增加主机值
      */
-    fun addHostList(key: String, value: BaseHostUrl) {
+    fun addHostList(key: String, value: BaseHostUrlDto) {
         if (!HOST_LIST.containsKey(key)) {
             HOST_LIST[key] = value
+        }
+    }
+
+    /**
+     * 只增加主机值
+     */
+    fun addHostList(hostMap:LinkedHashMap<String,BaseHostUrlDto>) {
+        hostMap.map {
+            addHostList(it.key,it.value)
         }
     }
 

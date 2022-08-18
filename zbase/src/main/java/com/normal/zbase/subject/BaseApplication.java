@@ -22,7 +22,7 @@ public abstract class BaseApplication extends Application {
         super.onCreate();
         mApp = this;
         initARouter();
-        initSDK();
+        initConfig();
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class BaseApplication extends Application {
         return resources;
     }
 
-    protected void initSDK() {
+    protected void initConfig() {
     }
 
     protected void destroySDK() {

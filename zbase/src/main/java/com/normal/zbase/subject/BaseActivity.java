@@ -12,8 +12,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.normal.zbase.R;
 import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
-import com.normal.zbase.http.subject.ApiManager;
-import com.normal.zbase.http.subject.ApiHttp;
+import com.normal.zbase.http.domain.ApiHttp;
 import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.event.EventBusUtils;
 import com.normal.zbase.utils.tools.ApplicationUtils;
@@ -53,7 +52,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.unregister(this);
         }
-        ActivityStackManager.getActivityManager().removeActivity(this);
+//        ActivityStackManager.getActivityManager().removeActivity(this);
         if (mDataBind != null) mDataBind.unbind();
     }
 
@@ -82,10 +81,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     }
 
     protected void init() {
-    }
-
-    protected ApiHttp apiService() {
-        return ApiManager.apiService();
     }
 
     protected void setToolbarTitle(String title) {

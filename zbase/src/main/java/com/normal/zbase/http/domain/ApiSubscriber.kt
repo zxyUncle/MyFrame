@@ -1,10 +1,9 @@
-package com.normal.zbase.http.subject
+package com.normal.zbase.http.domain
 
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.android.arouter.launcher.ARouter
 import com.normal.zbase.R
-import com.normal.zbase.arouter.RouterConstants
 import com.normal.zbase.http.exception.APIException
+import com.normal.zbase.manager.ActivityStackManager
 import com.normal.zbase.utils.hideLoading
 import com.normal.zbase.utils.obj.LogFiles
 import com.normal.zbase.utils.showLoad
@@ -24,12 +23,12 @@ import java.net.UnknownHostException
  * *******************
  */
 /**
- * @param mContext 当前Activity的上线文  必填
+ * @param mContext 当前Activity的上线文  可选  不传默认使用最上层的activity栈
  * @param isShowDialog 是否显示加载动画  可选
  * @param isShowLogin Token失效了，是否跳转到登录页  可选
  */
 abstract class ApiSubscriber<T> @JvmOverloads constructor(
-        private val mContext: AppCompatActivity,
+        private val mContext: AppCompatActivity = ActivityStackManager.getActivityManager().currentActivity(),
         private val isShowDialog: Boolean = false,
         private val isShowLogin: Boolean = false,
 ) : ResourceSubscriber<T>() {
@@ -111,7 +110,8 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
                     APIException(ApiConfig.CODE_NO_NETWORK, UNKNOWN_HOST_EXCEPTION)
                 }
                 is HttpException -> {
-                    APIException(t.code(), t.message)
+                    APIException(ApiConfig.CODE_NO_NETWORK, SOCKET_TIME_OUT_EXCEPTION)
+//                    APIException(t.code(), t.message)
                 }
                 else -> {
                     APIException(ApiConfig.CODE_UNKNOWN, t.message)
