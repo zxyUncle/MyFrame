@@ -25,7 +25,7 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  */
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity implements
         View.OnClickListener {
-    private final String TAG = getClass().getSimpleName();
+    protected final String TAG = getClass().getSimpleName();
     protected T mDataBind;
     protected ToolbarLayoutBinding toolbarDataBind;
 
@@ -53,7 +53,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.unregister(this);
         }
-//        ActivityStackManager.getActivityManager().removeActivity(this);
+        ActivityStackManager.getActivityManager().removeActivity(this);
         if (mDataBind != null) mDataBind.unbind();
     }
 
@@ -84,21 +84,31 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected void init() {
     }
 
-    protected void setToolbarTitle(String title) {
+    /**
+     * 设置标题
+     * @param title
+     */
+    protected void toolbarTitle(String title) {
         if (toolbarDataBind != null) {
             toolbarDataBind.title.setText(title);
+        }
+    }
+
+    /**
+     * 隐藏返回键
+      */
+    protected void toolbarHindLeftBack(){
+        try {
+            toolbarDataBind.left.setVisibility(View.GONE);
+        }catch (Exception e){
+
         }
     }
 
     protected ToolbarLayoutBinding getToolbarLayoutBinding() {
         try {
             toolbarDataBind = DataBindingUtil.bind(mDataBind.getRoot().findViewById(R.id.toolbar));
-            toolbarDataBind.left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            toolbarDataBind.left.setOnClickListener(view -> finish());
             return toolbarDataBind;
         } catch (NullPointerException nullPointerException) {
             nullPointerException.printStackTrace();

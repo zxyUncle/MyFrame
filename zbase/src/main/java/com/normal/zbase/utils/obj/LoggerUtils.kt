@@ -1,5 +1,6 @@
 package com.normal.zbase.utils.obj
 
+import android.os.Environment
 import android.util.Log
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
@@ -24,7 +25,8 @@ import java.io.File
 object LoggerUtils {
     private const val MAX_TIME = (10 * 24 * 60 * 60 * 1000).toLong()
 //    private var logPath = ApplicationUtils.context().filesDir.absolutePath+"/xlog/"
-    private var logPath = "/mnt/sdcard/%s/logs/";
+//    private var logPath = "/mnt/sdcard/Dowload/%s/logs/"
+    private var logPath = Environment.getExternalStorageDirectory().path +"/Download/%s/logs"
     private var TAG="HTTP"
 
     init {
