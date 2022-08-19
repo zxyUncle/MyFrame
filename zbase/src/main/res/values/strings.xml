@@ -2,5 +2,9 @@
     <string name="refresh_header_loading">加载中...</string>
     <string name="network_no">网路情况不太好</string>
     <string name="network_no_message">网络连接超时\n请检查您的网络状态</string>
+    <string name="permission_hint">请同意这些权限，用于我们接下来的操作</string>
+    <string name="permission_warn">您需要在设置中手动允许必要的权限，否则不能使用这部分功能哦!</string>
+    <string name="permission_confirm">确定</string>
+    <string name="permission_cancel">取消</string>
 
 </resources>

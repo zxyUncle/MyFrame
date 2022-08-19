@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.normal.main.R;
 import com.normal.main.databinding.ActivityMainBinding;
 import com.normal.main.http.HttpUrl;
@@ -50,13 +52,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         instance = this;
 //        setToolbarTitle("Title");
         mDataBind.setMPage(this);
-        adapter.setNewInstance(list);
+        mDataBind.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mDataBind.mRecyclerView.setAdapter(adapter);
+//        adapter.setNewInstance(list);
     }
 
     public void onPost(View view) {
         String[] a = null;
-        Log.e("zxy",a[0]);
-//        int a=  0/0; //全局异常拦截
+//        Log.e("zxy",a[0]);//        int a=  0/0; //全局异常拦截
+
         Map<String, Object> map = new HashMap<>();
         map.put("userName", "11111111112");
         map.put("password", "111111");
@@ -107,12 +111,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         super.onFail(channelStatusInfoDto);
                     }
                 });
-    }
-
-    public void  onStartAct(View view) {
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity2.class);
-        startActivity(intent);
     }
 
 

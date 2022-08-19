@@ -103,7 +103,6 @@ public interface ApiHttp {
     /**
      * POST请求
      * 参数通过Form表单的形式传递
-     * TODO Form模式下支持对于URl的请求,个人觉得没必要
      *
      * @param headers 请求头信息
      * @param path 路径地址

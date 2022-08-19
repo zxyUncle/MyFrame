@@ -5,17 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.normal.main.R
 import com.normal.zbase.http.bean.LoginResultDto
 import com.normal.zbase.manager.ActivityStackManager
 import com.normal.zbase.utils.extend.launchIO
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import java.util.function.BinaryOperator
-import java.util.function.Function
-import java.util.stream.Collectors
+import io.reactivex.subjects.BehaviorSubject
 
 class MainActivity2 : AppCompatActivity() {
     @SuppressLint("NewApi")
@@ -36,5 +30,4 @@ class MainActivity2 : AppCompatActivity() {
         intent.setClass(this, MainActivity::class.java)
         startActivity(intent)
     }
-
 }

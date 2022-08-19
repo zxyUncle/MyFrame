@@ -42,6 +42,11 @@ object LoggerUtils {
     }
 
     @JvmStatic
+    fun i(tag:String,msg: String) {
+        XLog.tag(tag).i(msg)
+    }
+
+    @JvmStatic
     fun e(e: Exception) {
         XLog.e(e)
     }

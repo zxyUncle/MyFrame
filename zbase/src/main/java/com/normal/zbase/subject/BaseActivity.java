@@ -25,6 +25,7 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  */
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity implements
         View.OnClickListener {
+    private final String TAG = getClass().getSimpleName();
     protected T mDataBind;
     protected ToolbarLayoutBinding toolbarDataBind;
 

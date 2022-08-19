@@ -4,6 +4,8 @@ package com.normal.zbase.utils.extend
 
 import android.util.Log
 import com.normal.zbase.BuildConfig
+import com.normal.zbase.utils.obj.LoggerUtils
+
 /**
  * Created by zsf on 2021/1/11 14:25
  * ******************************************
@@ -21,7 +23,7 @@ private fun isDebug() = BuildConfig.DEBUG
 
 fun ZLogger.printString(message: String="") {
     if(isDebug())
-    Log.e(loggerTag, "$message")
+        LoggerUtils.i(loggerTag,message)
 }
 
 
