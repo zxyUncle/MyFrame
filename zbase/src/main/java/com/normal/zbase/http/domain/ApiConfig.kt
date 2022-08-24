@@ -1,7 +1,6 @@
 package com.normal.zbase.http.domain
 
-import com.normal.zbase.BuildConfig
-import com.normal.zbase.http.bean.BaseHostUrlDto
+import okhttp3.Interceptor
 
 /**
  * *******************
@@ -21,9 +20,12 @@ object ApiConfig {
 
     private var normalHost: String? = null //默认域名
 
+    private var interceptorList: MutableList<Interceptor> = mutableListOf()  //用户自定义的拦截器
+
     /**
      * 设置默认域名，如果未null，就胡使用域名列表中的第一个
      */
+    @JvmStatic
     fun setNormalHost(normalHost: String?) {
         this.normalHost = normalHost
     }
@@ -33,7 +35,18 @@ object ApiConfig {
      * 不传参数：依据默认（根据是否Debug）
      * 传参数：依据key得到值
      */
-    @JvmOverloads
-    fun getHostUrl(url: String? = normalHost) = url
+    @JvmStatic
+    fun getHostUrl() = normalHost
+
+
+    /**
+     * 设置自定义的拦截器
+     */
+    @JvmStatic
+    fun setInterceptorList(interceptorList: MutableList<Interceptor>? = mutableListOf()) {
+        this.interceptorList = interceptorList ?: mutableListOf()
+    }
+
+    fun getInterceptorList() = interceptorList
 
 }
