@@ -26,7 +26,7 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
     private var isForm: Boolean = false //是否是表单请求
 
     /**
-     * 更换主机域名
+     * 更换主机域名  或者更换代理地址 host:80
      * http://10.10.10.10 -> http://10.10.10.11
      */
     override fun host(host: String): PostHttpServiceImp {
