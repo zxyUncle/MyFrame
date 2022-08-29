@@ -12,6 +12,7 @@ import com.elvishew.xlog.printer.file.FilePrinter
 import com.elvishew.xlog.printer.file.backup.NeverBackupStrategy
 import com.elvishew.xlog.printer.file.clean.FileLastModifiedCleanStrategy
 import com.elvishew.xlog.printer.file.naming.DateFileNameGenerator
+import com.normal.zbase.http.domain.ApiConfig
 import com.normal.zbase.utils.extend.gson
 import com.normal.zbase.utils.tools.ApplicationUtils
 import java.io.File
@@ -22,12 +23,13 @@ import java.io.File
  *    日志类
  * *******************
  */
-object Logger {
+object LoggerUtils {
     private const val MAX_TIME = (10 * 24 * 60 * 60 * 1000).toLong()
-//    private var logPath = ApplicationUtils.context().filesDir.absolutePath+"/xlog/"
+
+    //    private var logPath = ApplicationUtils.context().filesDir.absolutePath+"/xlog/"
 //    private var logPath = "/mnt/sdcard/Dowload/%s/logs/"
-    private var logPath = Environment.getExternalStorageDirectory().path +"/Download/%s/logs"
-    private var TAG="HTTP"
+    private var logPath = Environment.getExternalStorageDirectory().path + "/Download/%s/logs"
+    private var TAG = ApiConfig.HTTP_TAG
 
     init {
         init()
@@ -38,13 +40,14 @@ object Logger {
         createDir()
         initHTTP()
     }
+
     @JvmStatic
     fun i(msg: String) {
         XLog.i(msg)
     }
 
     @JvmStatic
-    fun i(tag:String,msg: String) {
+    fun i(tag: String, msg: String) {
         XLog.tag(tag).i(msg)
     }
 
@@ -54,13 +57,13 @@ object Logger {
     }
 
     @JvmStatic
-    fun e(msg:String,e: Throwable) {
-        XLog.e(msg,e)
+    fun e(msg: String, e: Throwable) {
+        XLog.e(msg, e)
     }
 
     @JvmStatic
     fun json(obj: Any) {
-        val toJson  = gson.toJson(obj)
+        val toJson = gson.toJson(obj)
         XLog.i(toJson)
     }
 
@@ -73,14 +76,16 @@ object Logger {
             .build()
 
 
-        val androidPrinter = AndroidPrinter(true) // Printer that print the log using android.util.Log
-        val consolePrinter = ConsolePrinter() // Printer that print the log to console using System.out
+        val androidPrinter =
+            AndroidPrinter(true) // Printer that print the log using android.util.Log
+        val consolePrinter =
+            ConsolePrinter() // Printer that print the log to console using System.out
         val filePrinter = FilePrinter.Builder(logPath) // Specify the directory path of log file(s)
-                .fileNameGenerator(DateFileNameGenerator()) // Default: ChangelessFileNameGenerator("log")
-                .backupStrategy(NeverBackupStrategy()) // Default: FileSizeBackupStrategy(1024 * 1024)
-                .cleanStrategy(FileLastModifiedCleanStrategy(MAX_TIME)) // Default: NeverCleanStrategy()
-                .flattener(ClassicFlattener()) // Default: DefaultFlattener
-                .build()
+            .fileNameGenerator(DateFileNameGenerator()) // Default: ChangelessFileNameGenerator("log")
+            .backupStrategy(NeverBackupStrategy()) // Default: FileSizeBackupStrategy(1024 * 1024)
+            .cleanStrategy(FileLastModifiedCleanStrategy(MAX_TIME)) // Default: NeverCleanStrategy()
+            .flattener(ClassicFlattener()) // Default: DefaultFlattener
+            .build()
 
         XLog.init(config, androidPrinter, filePrinter)
     }

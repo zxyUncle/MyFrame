@@ -19,7 +19,7 @@ import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.manager.PermissionManager;
 import com.normal.zbase.subject.BaseActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
-import com.normal.zbase.utils.obj.Logger;
+import com.normal.zbase.utils.obj.LoggerUtils;
 import com.zxy.zxydialog.TToast;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -107,14 +107,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     protected void onSuccess(LoginResultDto loginResultDto) {
                         super.onSuccess(loginResultDto);
                         TToast.show(new Gson().toJson(loginResultDto));
-                        Logger.json(loginResultDto);
+                        LoggerUtils.json(loginResultDto);
                     }
 
                     @Override
                     protected void onFail(LoginResultDto loginResultDto) {
                         super.onFail(loginResultDto);
                         TToast.show(new Gson().toJson(loginResultDto));
-                        Logger.json(loginResultDto);
+                        LoggerUtils.json(loginResultDto);
                     }
                 });
     }

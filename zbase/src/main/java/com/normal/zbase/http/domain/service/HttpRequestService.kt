@@ -54,7 +54,7 @@ abstract class HttpRequestService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(
                 if (TextUtils.isEmpty(host)) {
-                    ApiConfig.getHostUrl()
+                    ApiConfig.normalHost
                 } else {
                     host!!
                 }

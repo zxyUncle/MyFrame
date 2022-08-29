@@ -18,35 +18,22 @@ object ApiConfig {
 
     const val CODE_TOKEN_INVALID = "40001" //token 失效
 
-    private var normalHost: String? = null //默认域名
-
-    private var interceptorList: MutableList<Interceptor> = mutableListOf()  //用户自定义的拦截器
-
-    /**
-     * 设置默认域名，如果未null，就胡使用域名列表中的第一个
-     */
     @JvmStatic
-    fun setNormalHost(normalHost: String?) {
-        this.normalHost = normalHost
-    }
+    var HTTP_TAG = "HTTP" //日志的TAG
 
-    /**
-     * 获取主机地址
-     * 不传参数：依据默认（根据是否Debug）
-     * 传参数：依据key得到值
-     */
     @JvmStatic
-    fun getHostUrl() = normalHost
+    var isPrintHttpLog = true //是否输出日志
 
-
-    /**
-     * 设置自定义的拦截器
-     */
     @JvmStatic
-    fun setInterceptorList(interceptorList: MutableList<Interceptor>? = mutableListOf()) {
-        this.interceptorList = interceptorList ?: mutableListOf()
-    }
+    var normalHost: String? = null //设置默认域名，可以动态更换，或者通过网路请求指定host更换
 
-    fun getInterceptorList() = interceptorList
+    @JvmStatic
+    var interceptorList: MutableList<Interceptor> = mutableListOf()  //用户自定义的拦截器
+
+    @JvmStatic
+    var filterUrlLogList: MutableList<String> = mutableListOf()  //不输出指定的Url路径的日志
+
+    @JvmStatic
+    var filterLogMsg: MutableList<String> = mutableListOf()  //不输出指定的糟乱的日志(内容) 部分相
 
 }
