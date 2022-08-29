@@ -32,7 +32,7 @@ object OkhttpClientHelp {
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS)
-        //增加请求头
+        //增加自定义拦截器
         ApiConfig.getInterceptorList().map { interceptor->
             builder.addInterceptor(interceptor)
         }
