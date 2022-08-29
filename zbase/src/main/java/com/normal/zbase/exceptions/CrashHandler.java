@@ -2,11 +2,10 @@ package com.normal.zbase.exceptions;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.normal.zbase.utils.obj.LoggerUtils;
+import com.normal.zbase.utils.obj.Logger;
 
 /**
  * Created by zsf on 2022/8/18 16:49
@@ -41,7 +40,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                     // 由于主线程的Crash是统一出现在loop()的case
                     Looper.loop();//主线程的异常会从这里抛出
                 } catch (Throwable e) {
-                    LoggerUtils.e("【全局异常补货】",e);
+                    Logger.e("【全局异常补货】",e);
                 }
             }
         });
@@ -50,7 +49,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
         try {
-            LoggerUtils.e("【全局异常补货】",throwable);
+            Logger.e("【全局异常补货】",throwable);
             throwable.printStackTrace();
             thread.interrupt();
         } catch (Exception ignored) {

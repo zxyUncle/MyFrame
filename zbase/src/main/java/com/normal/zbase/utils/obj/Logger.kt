@@ -22,7 +22,7 @@ import java.io.File
  *    日志类
  * *******************
  */
-object LoggerUtils {
+object Logger {
     private const val MAX_TIME = (10 * 24 * 60 * 60 * 1000).toLong()
 //    private var logPath = ApplicationUtils.context().filesDir.absolutePath+"/xlog/"
 //    private var logPath = "/mnt/sdcard/Dowload/%s/logs/"

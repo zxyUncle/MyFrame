@@ -2,7 +2,7 @@ package com.normal.zbase.http.domain.service.help
 
 import com.normal.zbase.BuildConfig
 import com.normal.zbase.http.domain.ApiConfig
-import com.normal.zbase.utils.obj.LoggerUtils
+import com.normal.zbase.utils.obj.Logger
 import com.normal.zbase.utils.tools.ApplicationUtils
 import okhttp3.Cache
 import okhttp3.JavaNetCookieJar
@@ -40,10 +40,10 @@ object OkhttpClientHelp {
             var loggingInterceptor = HttpLoggingInterceptor {
                 if (BuildConfig.DEBUG) {
                     try {
-                        LoggerUtils.i(it)
+                        Logger.i(it)
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        LoggerUtils.e(e)
+                        Logger.e(e)
                     }
                 }
             }.setLevel(HttpLoggingInterceptor.Level.BODY)
