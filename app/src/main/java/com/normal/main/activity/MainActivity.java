@@ -51,13 +51,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        toolbarTitle("Title");
-        toolbarHindLeftBack();
+        toolbarTitle("Title");//标题
+        toolbarHindLeftBack();//隐藏返回键
         mDataBind.setActivity(this);
+        //adapter
         mDataBind.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDataBind.mRecyclerView.setAdapter(adapter);
         adapter.setNewInstance(list);
-
+        //获取权限
         permissionRequest();
     }
 
@@ -78,6 +79,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         });
     }
 
+    /**
+     * POSt请求示例
+     * @param view
+     */
     public void onPost(View view) {
 //        String[] a = null;
 //        Log.e("zxy",a[0]);//全局异常拦截
@@ -117,6 +122,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 });
     }
 
+    /**
+     * Get请求示例
+     * @param view
+     */
     public void onGet(View view) {
         Map<String, Object> map = new HashMap<>();
         map.put("orderChannel", "nale");
@@ -137,8 +146,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
 
+    /**
+     * 事件
+     * @param eventBean
+     */
     @Subscribe
     public void onEvnet(MessageEventBean eventBean) {
-        //事件
+
     }
 }
