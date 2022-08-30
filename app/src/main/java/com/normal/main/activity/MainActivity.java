@@ -106,25 +106,39 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .body(map)
                 .execute(LoginResultDto.class)//可以使用父类的code（使用继承关系），也可以使用子类的code
                 .subscribe(new ApiSubscriber<LoginResultDto>(true) {//显示加载动画
-                    @Override
-                    protected void onSuccess(LoginResultDto loginResultDto) {//非必实现，成功的返回（code == 200），修改code 在ApiConfig文件中
-                        super.onSuccess(loginResultDto);
-                        TToast.show(new Gson().toJson(loginResultDto));
-                        LoggerUtils.json(loginResultDto);
-                    }
+
+//                    @Override
+//                    protected void onSuccess(LoginResultDto loginResultDto) {//非必实现，成功的返回（code == 200），code 或 200在ApiConfig文件中修改
+//                        super.onSuccess(loginResultDto);
+//                        TToast.show(new Gson().toJson(loginResultDto));
+//                        LoggerUtils.json(loginResultDto);
+//                    }
+//
+//                    @Override
+//                    protected void onFail(LoginResultDto loginResultDto) {//非必实现，，非200的请求结果
+//                        super.onFail(loginResultDto);
+//                        TToast.show(new Gson().toJson(loginResultDto));
+//                        LoggerUtils.json(loginResultDto);
+//                    }
 
                     @Override
-                    protected void onFail(LoginResultDto loginResultDto) {//非必实现，，非200的请求结果
-                        super.onFail(loginResultDto);
-                        TToast.show(new Gson().toJson(loginResultDto));
-                        LoggerUtils.json(loginResultDto);
+                    protected void onCompleteHandler() {//非必实现，整个请求完成的回调，方便做刷新动画的结束标志等
+                        super.onCompleteHandler();
                     }
 
+
                     @Override
-                    protected void onCompleteRequest() {//非必实现，，整个请求完成的结果
-                        super.onCompleteRequest();
-                        //可以做刷新控件的结束动画
+                    protected void onResponseHandler(LoginResultDto loginResultDto) {//非必实现，不判断成功还是失败，直觉返回，跟onSuccess、onFail互斥，二选一
+                        super.onResponseHandler(loginResultDto);
+                        TToast.show(new Gson().toJson(loginResultDto));
+                        LoggerUtils.json(loginResultDto);
+                        if (loginResultDto.isSuccess()){
+
+                        }else{
+
+                        }
                     }
+
                 });
     }
 
@@ -140,7 +154,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .execute(ChannelStatusInfoDto.class)
                 .subscribe(new ApiSubscriber<ChannelStatusInfoDto>() {
                     @Override
-                    protected void onSuccess(ChannelStatusInfoDto channelStatusInfoDto) {
+                    protected void onSuccess(ChannelStatusInfoDto channelStatusInfoDto) {//非必实现，成功的返回（code == 200），code 或 200在ApiConfig文件中修改
                         super.onSuccess(channelStatusInfoDto);
                     }
                 });

@@ -45,6 +45,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
     }
 
     override fun onNext(it: T) {
+        onResponseHandler(it)//直接返回
         try {
             val obj = it!!::class.java
             //获取父类的属性
@@ -78,7 +79,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             hideLoading()
             val exception = accept(t)
             onErrorHandle(exception)
-            onCompleteRequest()
+            onCompleteHandler()
         } catch (e: Exception) {
             e.printStackTrace()
             LoggerUtils.e(e)
@@ -88,7 +89,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
     override fun onComplete() {
         try {
             hideLoading()
-            onCompleteRequest()
+            onCompleteHandler()
         } catch (e: Exception) {
             e.printStackTrace()
             LoggerUtils.e(e)
@@ -137,9 +138,14 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
     protected open fun onFail(t: T) {}
 
     /**
-     * 非必实现，完成整个http请求，方便做刷新动画的结束标志等
+     * 非必实现，整个请求完成的回调，方便做刷新动画的结束标志等
      */
-    protected open fun onCompleteRequest() {}
+    protected open fun onCompleteHandler() {}
+
+    /**
+     *  非必实现，不判断成功还是失败，直觉返回，跟onSuccess、onFail互斥，二选一
+     */
+    protected open fun onResponseHandler(t: T) {}
     /**
      * 错误，非200 的返回
      */
