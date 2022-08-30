@@ -99,7 +99,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
       */
     protected void toolbarHindLeftBack(){
         try {
-            toolbarDataBind.left.setVisibility(View.GONE);
+            if (toolbarDataBind != null) {
+                toolbarDataBind.left.setVisibility(View.GONE);
+            }
         }catch (Exception e){
 
         }
@@ -108,12 +110,15 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected ToolbarLayoutBinding getToolbarLayoutBinding() {
         try {
             toolbarDataBind = DataBindingUtil.bind(mDataBind.getRoot().findViewById(R.id.toolbar));
-            toolbarDataBind.left.setOnClickListener(view -> finish());
+            toolbarDataBind.left.setOnClickListener(view -> onTitleBack());
             return toolbarDataBind;
         } catch (NullPointerException nullPointerException) {
             nullPointerException.printStackTrace();
             return null;
         }
+    }
+    protected void onTitleBack(){
+        finish();
     }
 
 }

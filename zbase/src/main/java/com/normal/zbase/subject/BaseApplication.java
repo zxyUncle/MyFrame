@@ -20,35 +20,36 @@ public abstract class BaseApplication extends Application {
     private long mStartActivityTime = 0;
 
     /**
-     * 不输出指定的Url路径的日志
-     * @return
-     */
-    public  List<String> setFilterUrlLogList(){return new ArrayList<>();}
-    /**
-     * 不输出指定的糟乱的日志(内容) 部分相
-     * @return
-     */
-    public  List<String> setFilterLogMsg(){return new ArrayList<>();}
-    /**
-     * 指定的自定义拦截器
-     * @return
-     */
-    public  List<Interceptor> setInterceptorList(){return  new ArrayList<>();}
-    /**
-     * 是否打印Http日志
-     * @return
-     */
-    public  boolean setIsPrintHttpLog(){return true;}
-    /**
-     * 日志的TAG
-     * @return
-     */
-    public  String setHTTP_TAG(){return ApiConfig.getHTTP_TAG();}
-    /**
      * 指定的主机host
      * @return
      */
     public abstract String getHostUrlList();
+    /**
+     * 指定的自定义拦截器
+     * @return
+     */
+    public  List<Interceptor> getInterceptorList(){return  new ArrayList<>();}
+    /**
+     * 是否打印Http日志
+     * @return
+     */
+    public  boolean getIsPrintHttpLog(){return true;}
+    /**
+     * 日志的TAG
+     * @return
+     */
+    public  String getHTTP_TAG(){return ApiConfig.getHTTP_TAG();}
+
+    /**
+     * 不输出指定的Url路径的日志 不能包含，一般用来过滤心跳日志，比较拉的后端,一般不用
+     * @return
+     */
+    public  List<String> getFilterUrlLogList(){return new ArrayList<>();}
+    /**
+     * 不输出指定的糟乱的日志(内容) 部分相 ，一般用来过滤息屏的socket失败日志，一般不用
+     * @return
+     */
+    public  List<String> getFilterLogMsg(){return new ArrayList<>();}
 
 
     @Override
@@ -63,11 +64,11 @@ public abstract class BaseApplication extends Application {
 
     private void init(){
         ApiConfig.setNormalHost(getHostUrlList());
-        ApiConfig.setFilterUrlLogList(setFilterUrlLogList());
-        ApiConfig.setFilterLogMsg(setFilterLogMsg());
-        ApiConfig.setInterceptorList(setInterceptorList());
-        ApiConfig.setPrintHttpLog(setIsPrintHttpLog());
-        ApiConfig.setHTTP_TAG(setHTTP_TAG());
+        ApiConfig.setInterceptorList(getInterceptorList());
+        ApiConfig.setPrintHttpLog(getIsPrintHttpLog());
+        ApiConfig.setHTTP_TAG(getHTTP_TAG());
+        ApiConfig.setFilterUrlLogList(getFilterUrlLogList());
+        ApiConfig.setFilterLogMsg(getFilterLogMsg());
     }
 
     @Override

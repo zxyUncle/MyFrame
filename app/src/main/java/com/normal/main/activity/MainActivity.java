@@ -40,7 +40,6 @@ import kotlin.jvm.functions.Function1;
  */
 @BindEventBus
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
-    public static MainActivity instance;
     private BaseRecyclerViewAdapter<String> adapter = new BaseRecyclerViewAdapter<>(R.layout.adapter_item);
     private List list = Arrays.asList("o1", "o2");
 
@@ -52,13 +51,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        instance = this;
-        toolbarTitle("Title");
-        toolbarHindLeftBack();
-        mDataBind.setMPage(this);
+//        toolbarTitle("Title");
+//        toolbarHindLeftBack();
+        mDataBind.setActivity(this);
         mDataBind.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDataBind.mRecyclerView.setAdapter(adapter);
-        adapter.setNewInstance(list);
+//        adapter.setNewInstance(list);
 
         permissionRequest();
     }

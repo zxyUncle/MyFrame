@@ -8,7 +8,7 @@
     <data>
 
         <variable
-            name="mPage"
+            name="activity"
             type="com.normal.main.activity.MainActivity"
             />
     </data>
@@ -19,17 +19,13 @@
         android:orientation="vertical"
         >
 
-        <include
-            layout="@layout/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            />
+        <include layout="@layout/toolbar_layout" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="@{mPage::onGet}"
+            android:onClick="@{activity::onGet}"
             android:text="Get"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -41,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="@{mPage::onPost}"
+            android:onClick="@{activity::onPost}"
             android:text="Post"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

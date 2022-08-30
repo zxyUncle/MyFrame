@@ -10,6 +10,16 @@ public class MyApplication extends BaseApplication {
     }
 
     @Override
+    public String getHTTP_TAG() {
+        return "ZXY";
+    }
+
+    @Override
+    public boolean getIsPrintHttpLog() {
+        return true;
+    }
+
+    @Override
     protected void initConfig() {
         super.initConfig();
     }
