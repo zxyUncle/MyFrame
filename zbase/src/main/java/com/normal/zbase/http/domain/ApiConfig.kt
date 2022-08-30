@@ -8,18 +8,19 @@ import okhttp3.Interceptor
  * *******************
  */
 object ApiConfig {
-    const val CODE_NAME = "code" //成功或者失败的code或者status名字，根据服务器不同，变为不同
-
-    const val CODE_SUCCESS = "0000" //请求成功
-
-    const val CODE_UNKNOWN = "-10000"
-
-    const val CODE_NO_NETWORK = "-10001"
-
-    const val CODE_TOKEN_INVALID = "40001" //token 失效
+    @JvmStatic
+    var CODE_NAME = "code" //成功或者失败的code或者status名字，根据服务器不同，变为不同
+    @JvmStatic
+    var CODE_SUCCESS = "0000" //请求成功
+    @JvmStatic
+    var CODE_UNKNOWN = "-10000"//未知
+    @JvmStatic
+    var CODE_NO_NETWORK = "-10001"//网路异常
+    @JvmStatic
+    var CODE_TOKEN_INVALID = "40001" //token 失效
 
     @JvmStatic
-    var HTTP_TAG = "HTTP" //日志的TAG
+    var HTTP_TAG = "HTTP" //默认日志的TAG
 
     @JvmStatic
     var isPrintHttpLog = true //是否输出日志

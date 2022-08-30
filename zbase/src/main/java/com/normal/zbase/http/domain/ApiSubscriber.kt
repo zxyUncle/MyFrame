@@ -28,15 +28,15 @@ import java.net.UnknownHostException
  * @param isShowLogin Token失效了，是否跳转到登录页  可选
  */
 abstract class ApiSubscriber<T> @JvmOverloads constructor(
+        private val isShowLoad: Boolean = false,
         private val mContext: AppCompatActivity = ActivityStackManager.getActivityManager().currentActivity(),
-        private val isShowDialog: Boolean = false,
         private val isShowLogin: Boolean = false,
 ) : ResourceSubscriber<T>() {
 
     override fun onStart() {
         super.onStart()
         try {
-            if (isShowDialog)
+            if (isShowLoad)
                 mContext.showLoad()
         } catch (e: Exception) {
             LoggerUtils.e(e)

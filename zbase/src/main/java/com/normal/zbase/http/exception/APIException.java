@@ -36,11 +36,11 @@ public class APIException extends RuntimeException {
     }
 
     public boolean isTokenInvalid() {
-        return code != null && code.equals(ApiConfig.CODE_TOKEN_INVALID);
+        return code != null && code.equals(ApiConfig.getCODE_TOKEN_INVALID());
     }
 
     public boolean isNoNetwork() {
-        return code != null && code.equals(ApiConfig.CODE_NO_NETWORK);
+        return code != null && code.equals(ApiConfig.getCODE_NO_NETWORK());
     }
 
 }
