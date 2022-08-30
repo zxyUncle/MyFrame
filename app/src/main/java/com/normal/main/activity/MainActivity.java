@@ -41,7 +41,7 @@ import kotlin.jvm.functions.Function1;
 @BindEventBus
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private BaseRecyclerViewAdapter<String> adapter = new BaseRecyclerViewAdapter<>(R.layout.adapter_item);
-    private List list = Arrays.asList("o1", "o2");
+    private List list = Arrays.asList("o1", "o2", "o2");
 
     @Override
     protected int getLayoutResID() {
@@ -51,12 +51,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-//        toolbarTitle("Title");
-//        toolbarHindLeftBack();
+        toolbarTitle("Title");
+        toolbarHindLeftBack();
         mDataBind.setActivity(this);
         mDataBind.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDataBind.mRecyclerView.setAdapter(adapter);
-//        adapter.setNewInstance(list);
+        adapter.setNewInstance(list);
 
         permissionRequest();
     }
@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .post(HttpUrl.login)
                 /**  可选项  start **/
                 //可选 重置HostUrl
-                .host("http://10.10.101.39")
+                .host("http://10.10.10.139")
                 //可选 绑定指定的Actiivt，不填默绑定最上层栈的activity，置空不绑定生命周期，绑定了默认跟随activiti销毁而销毁
                 .bindLifecycleOwner(ActivityStackManager.getActivityManager().currentActivity())
                 //可选，是否是表单提交，默认false
@@ -139,6 +139,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Subscribe
     public void onEvnet(MessageEventBean eventBean) {
-
+        //事件
     }
 }
