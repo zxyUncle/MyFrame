@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.Gson;
 import com.normal.main.R;
 import com.normal.main.databinding.ActivityMainBinding;
-import com.normal.main.http.HttpUrl;
-import com.normal.main.http.bean.ChannelStatusInfoDto;
+import com.normal.main.http.HttpApi;
+import com.normal.main.http.dto.ChannelStatusInfoDto;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.MessageEventBean;
-import com.normal.zbase.http.bean.LoginResultDto;
+import com.normal.zbase.http.dto.LoginResultDto;
 import com.normal.zbase.http.domain.ApiFoctory;
 import com.normal.zbase.http.domain.ApiSubscriber;
 import com.normal.zbase.manager.ActivityStackManager;
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         map.put("system", "customer");
         map.put("expiry", "-1");
         ApiFoctory
-                .post(HttpUrl.login)
+                .post(HttpApi.login)
                 /**  可选项  start **/
                 //可选 重置HostUrl
                 .host("http://10.10.101.39")
@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public void onGet(View view) {
         Map<String, Object> map = new HashMap<>();
         map.put("orderChannel", "nale");
-        ApiFoctory.get(HttpUrl.select_channel_status)
+        ApiFoctory.get(HttpApi.select_channel_status)
                 .params(map)
                 .execute(ChannelStatusInfoDto.class)
                 .subscribe(new ApiSubscriber<ChannelStatusInfoDto>() {

@@ -1,4 +1,4 @@
-package com.normal.zbase.http.bean;
+package com.normal.zbase.http.dto;
 
 
 public class LoginResultDto extends ABaseResponse {

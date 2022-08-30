@@ -1,6 +1,6 @@
-package com.normal.main.http.bean;
+package com.normal.main.http.dto;
 
-import com.normal.zbase.http.bean.ABaseResponse;
+import com.normal.zbase.http.dto.ABaseResponse;
 
 import java.io.Serializable;
 import java.util.List;

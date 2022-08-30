@@ -7,7 +7,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.normal.main.R
-import com.normal.zbase.http.bean.LoginResultDto
+import com.normal.zbase.http.dto.LoginResultDto
 import com.normal.zbase.manager.ActivityStackManager
 import com.normal.zbase.utils.extend.launchIO
 

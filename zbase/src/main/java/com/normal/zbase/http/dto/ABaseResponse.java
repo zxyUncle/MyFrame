@@ -1,4 +1,4 @@
-package com.normal.zbase.http.bean;
+package com.normal.zbase.http.dto;
 
 public class ABaseResponse {
     private String code;

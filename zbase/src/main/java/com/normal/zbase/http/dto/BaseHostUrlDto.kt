@@ -1,4 +1,4 @@
-package com.normal.zbase.http.bean
+package com.normal.zbase.http.dto
 
 /**
  * Created by zsf on 2022/8/16 13:36

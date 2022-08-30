@@ -6,7 +6,7 @@ import okhttp3.Response
 /**
  * Created by zsf on 2022/1/19 17:02
  * ******************************************
- * * 示例拦截器
+ * * 示例自定义拦截器
  * ******************************************
  */
 class TestInterceptor: Interceptor {
