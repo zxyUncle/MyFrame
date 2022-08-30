@@ -70,14 +70,15 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             LoggerUtils.e(e)
-            onFail(it)
         }
     }
 
     override fun onError(t: Throwable) {
         try {
             hideLoading()
-            onErrorHandle(accept(t))
+            val exception = accept(t)
+            onErrorHandle(exception)
+            onCompleteRequest()
         } catch (e: Exception) {
             e.printStackTrace()
             LoggerUtils.e(e)
@@ -87,7 +88,7 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
     override fun onComplete() {
         try {
             hideLoading()
-            onCompleteHandle()
+            onCompleteRequest()
         } catch (e: Exception) {
             e.printStackTrace()
             LoggerUtils.e(e)
@@ -124,19 +125,21 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
     }
 
     /**
-     * 成功 code =200
+     * 非必实现，成功的返回（code == 200），修改code 在ApiConfig文件中
      * @param t 返回的对象
      */
     protected open fun onSuccess(t: T) {}
 
     /**
-     * 失败 code = 非200
+     * 非必实现，失败 code ！= 200
      * @param t 返回的对象
      */
-    protected open fun onFail(t: T) {
+    protected open fun onFail(t: T) {}
 
-    }
-
+    /**
+     * 非必实现，完成整个http请求，方便做刷新动画的结束标志等
+     */
+    protected open fun onCompleteRequest() {}
     /**
      * 错误，非200 的返回
      */
@@ -151,7 +154,6 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
         }
     }
 
-    private fun onCompleteHandle() {}
 
     companion object {
         private val SOCKET_TIME_OUT_EXCEPTION = ApplicationUtils.context().resources.getString(R.string.network_no_message)

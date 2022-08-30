@@ -104,20 +104,26 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .isForm(false)
                 /**  可选项   end **/
                 .body(map)
-                .execute(LoginResultDto.class)
+                .execute(LoginResultDto.class)//可以使用父类的code（使用继承关系），也可以使用子类的code
                 .subscribe(new ApiSubscriber<LoginResultDto>(true) {//显示加载动画
                     @Override
-                    protected void onSuccess(LoginResultDto loginResultDto) {
+                    protected void onSuccess(LoginResultDto loginResultDto) {//非必实现，成功的返回（code == 200），修改code 在ApiConfig文件中
                         super.onSuccess(loginResultDto);
                         TToast.show(new Gson().toJson(loginResultDto));
                         LoggerUtils.json(loginResultDto);
                     }
 
                     @Override
-                    protected void onFail(LoginResultDto loginResultDto) {
+                    protected void onFail(LoginResultDto loginResultDto) {//非必实现，，非200的请求结果
                         super.onFail(loginResultDto);
                         TToast.show(new Gson().toJson(loginResultDto));
                         LoggerUtils.json(loginResultDto);
+                    }
+
+                    @Override
+                    protected void onCompleteRequest() {//非必实现，，整个请求完成的结果
+                        super.onCompleteRequest();
+                        //可以做刷新控件的结束动画
                     }
                 });
     }
@@ -136,11 +142,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     @Override
                     protected void onSuccess(ChannelStatusInfoDto channelStatusInfoDto) {
                         super.onSuccess(channelStatusInfoDto);
-                    }
-
-                    @Override
-                    protected void onFail(ChannelStatusInfoDto channelStatusInfoDto) {
-                        super.onFail(channelStatusInfoDto);
                     }
                 });
     }
