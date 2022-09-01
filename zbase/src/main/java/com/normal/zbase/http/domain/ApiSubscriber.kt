@@ -5,7 +5,7 @@ import com.normal.zbase.R
 import com.normal.zbase.http.exception.APIException
 import com.normal.zbase.manager.ActivityStackManager
 import com.normal.zbase.utils.hideLoading
-import com.normal.zbase.utils.obj.LoggerUtils
+import com.normal.zbase.logs.LoggerUtils
 import com.normal.zbase.utils.showLoad
 import com.normal.zbase.utils.tools.ApplicationUtils
 import com.zxy.zxydialog.TToast

@@ -12,7 +12,7 @@ public class MyApplication extends BaseApplication {
 
     @Override
     public String getHTTP_TAG() {
-        return "ZXY";
+        return "HTTP";
     }
 
     @Override

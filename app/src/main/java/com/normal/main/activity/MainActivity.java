@@ -19,7 +19,7 @@ import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.manager.PermissionManager;
 import com.normal.zbase.subject.BaseActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
-import com.normal.zbase.utils.obj.LoggerUtils;
+import com.normal.zbase.logs.LoggerUtils;
 import com.zxy.zxydialog.TToast;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -156,6 +156,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     @Override
                     protected void onSuccess(ChannelStatusInfoDto channelStatusInfoDto) {//非必实现，成功的返回（code == 200），code 或 200在ApiConfig文件中修改
                         super.onSuccess(channelStatusInfoDto);
+                        LoggerUtils.json(channelStatusInfoDto);
                     }
                 });
     }

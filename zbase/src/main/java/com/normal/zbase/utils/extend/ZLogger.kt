@@ -3,7 +3,7 @@
 package com.normal.zbase.utils.extend
 
 import com.normal.zbase.BuildConfig
-import com.normal.zbase.utils.obj.LoggerUtils
+import com.normal.zbase.logs.LoggerUtils
 
 /**
  * Created by zsf on 2021/1/11 14:25
