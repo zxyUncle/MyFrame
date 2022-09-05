@@ -41,7 +41,7 @@ ext {
             "SmartRefreshFooter"           : 'com.scwang.smart:refresh-footer-ball:2.0.3',
             "xlog"                         : 'com.elvishew:xlog:1.10.1',
             "gson"                         : 'com.google.code.gson:gson:2.8.5',
-            "DialogDemo"                   : 'com.github.zxyUncle:DialogDemo:1.4.1',
+            "DialogDemo"                   : 'com.github.zxyUncle:DialogDemo:1.4.2',
             "kprogresshud"                 : 'com.kaopiz:kprogresshud:1.0.2',
             "lifecycleScope"               : 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1',
             "viewModelScope"               : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1',
