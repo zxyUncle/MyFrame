@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +18,21 @@ import android.widget.ScrollView;
  * *******************
  */
 public class BounceScrollView extends ScrollView {
-    private View mZoomView;
-    private int mZoomViewWidth;
+    //放大属性
+    private View mZoomView; //放大的View
+    private int mZoomViewWidth;//放大的View宽
     private int mZoomViewHeight;
     private float mReplyRate = 0.5f;//回调系数，越大，回调越慢
     private float mZoomRate = 0.5f;//缩放系数，缩放系数越大，变化的越大
-    private int changeValue;//开始放大的变化值
+    private int changeValue;//开始放大变化的临界值
     private boolean isMagnify = false;//是否开始放大
     private float firstPosition;//记录第一次按下的位置
 
-
+    //滑动属性
     private float mScrolRate = 1.5f;//滑动系数
     private View inner;// 孩子View
     private float y;// 点击时y坐标
+    private float lastDeltaY = 0 ;// 上一次滑动的距离，用来防止上滑操作
     private Rect normal = new Rect();    // 矩形(这里仅仅是个形式，仅仅是用于推断是否须要动画.)
     private boolean isScrooll = false;// 是否滑动开始计算
 
@@ -85,11 +88,6 @@ public class BounceScrollView extends ScrollView {
                     zoomReplyImage();
                 }
                 break;
-            /***
-             * 排除出第一次移动计算。由于第一次无法得知y坐标。 在MotionEvent.ACTION_DOWN中获取不到，
-             * 由于此时是MyScrollView的touch事件传递到到了LIstView的孩子item上面.所以从第二次计算開始.
-             * 然而我们也要进行初始化，就是第一次移动的时候让滑动距离归0. 之后记录准确了就正常运行.
-             */
             case MotionEvent.ACTION_MOVE:
                 final float preY = y;// 按下时的y坐标
                 float nowY = ev.getY();// 时时y坐标
@@ -97,11 +95,10 @@ public class BounceScrollView extends ScrollView {
                 if (!isScrooll) {
                     deltaY = 0; // 在这里要归0.
                 }
-
                 y = nowY;
                 // 当滚动到最上或者最下时就不会再滚动，这时移动布局
                 int topDetaY = inner.getTop() - (int) (deltaY / mScrolRate);
-                if (isNeedMove()) {
+                if (isNeedMove() && isGlide(deltaY)) {
                     if (topDetaY > changeValue) {
                         int distance = (int) ((ev.getY() - firstPosition) * mZoomRate); // 滚动距离乘以一个系数
                         if (distance < 0) { // 当前位置比记录位置要小，正常返回
@@ -122,6 +119,19 @@ public class BounceScrollView extends ScrollView {
             default:
                 break;
         }
+    }
+
+    /**
+     * 是否是下拉滑动
+     * @param deltaY 滑动的距离
+     */
+    private boolean isGlide(int deltaY){
+        if (deltaY<0 && Math.abs(lastDeltaY - deltaY)<50){
+            lastDeltaY =deltaY;
+            return true;
+        }
+        return false;
+
     }
 
     /**
@@ -168,7 +178,6 @@ public class BounceScrollView extends ScrollView {
     public boolean isNeedMove() {
         int offset = inner.getMeasuredHeight() - getHeight();
         int scrollY = getScrollY();
-//		Log.e("jj", "scrolly=" + scrollY);
         // 0是顶部。后面那个是底部
         if (scrollY == 0 || scrollY == offset) {
             return true;
