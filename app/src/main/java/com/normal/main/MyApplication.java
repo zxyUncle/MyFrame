@@ -1,7 +1,6 @@
 package com.normal.main;
 
 
-import com.normal.zbase.http.domain.ApiConfig;
 import com.normal.zbase.subject.BaseApplication;
 
 public class MyApplication extends BaseApplication {
@@ -23,5 +22,6 @@ public class MyApplication extends BaseApplication {
     @Override
     protected void initConfig() {
         super.initConfig();
+        
     }
 }

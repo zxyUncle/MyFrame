@@ -17,6 +17,9 @@ object PermissionManager {
     //读内存
     @JvmStatic
     var READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
+    //读内存
+    @JvmStatic
+    var CAMERA = Manifest.permission.CAMERA
 
     /**
      * kotlin 直接调用 requestPermission 有扩展函数

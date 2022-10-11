@@ -11,6 +11,7 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  */
 public @interface LogFilesPath {
     String PARENT = Environment.getExternalStorageDirectory().getPath() + "/Download/" + ApplicationUtils.context().getPackageName() + "/";
+//    String PARENT = Environment.getStorageDirectory().+ "/logs/" + ApplicationUtils.context().getPackageName() + "/";
     //日志级别目录
     String NORMAL = PARENT + "logs"; //默认路径
     String ERROR = PARENT + "logsErr";//一般存放错误日志的路径

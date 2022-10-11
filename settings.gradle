@@ -11,4 +11,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MyFrame"
 include ':app'
-include ':zbase'
+include ':lib_zbase'

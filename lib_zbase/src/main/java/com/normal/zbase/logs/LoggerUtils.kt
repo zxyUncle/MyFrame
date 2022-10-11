@@ -144,8 +144,6 @@ object LoggerUtils {
             if (!file.mkdirs()) {
                 i("$path 目录创建失败")
                 return
-            } else {
-                i("$path 目录创建成功")
             }
         }
     }

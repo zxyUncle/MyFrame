@@ -1,6 +1,8 @@
 package com.normal.main.activity;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,14 +14,13 @@ import com.normal.main.http.HttpApi;
 import com.normal.main.http.dto.ChannelStatusInfoDto;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.MessageEventBean;
-import com.normal.zbase.http.dto.LoginResultDto;
 import com.normal.zbase.http.domain.ApiFoctory;
 import com.normal.zbase.http.domain.ApiSubscriber;
+import com.normal.zbase.http.dto.LoginResultDto;
+import com.normal.zbase.logs.LoggerUtils;
 import com.normal.zbase.manager.ActivityStackManager;
-import com.normal.zbase.manager.PermissionManager;
 import com.normal.zbase.subject.BaseActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
-import com.normal.zbase.logs.LoggerUtils;
 import com.zxy.zxydialog.TToast;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -28,9 +29,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 /**
  * Created by zsf on 2022/1/17 17:38
@@ -66,18 +64,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
      * 权限请求
      */
     public void permissionRequest() {
-        List permissList = Arrays.asList(
-                PermissionManager.getREAD_EXTERNAL_STORAGE(),
-                PermissionManager.getWRITE_EXTERNAL_STORAGE());
-        //请求权限
-        PermissionManager.reqeustPermission(this, permissList, () -> {
-            TToast.show("已经全部同意");
-            return null;
-        }, (Function1<List<String>, Unit>) list -> {
-            TToast.show("不同意的权限有" + new Gson().toJson(list));
-            return null;
-        });
+        Log.e("zxy","开始权限请求");
+        List permissList = Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
+    public void permissionRequest1() {
+        List permissList = Arrays.asList(Manifest.permission.CAMERA);
+        //请求权限
+
+    }
+
 
     /**
      * POSt请求示例

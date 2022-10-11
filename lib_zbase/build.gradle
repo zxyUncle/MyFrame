@@ -70,6 +70,7 @@ dependencies {
     api rootProject.ext.dependencies["kprogresshud"]
     api rootProject.ext.dependencies["lifecycleScope"]
     api rootProject.ext.dependencies["viewModelScope"]
+    api rootProject.ext.dependencies["permissionx"]
 }
 
 task sourceJar(type: Jar) {
