@@ -1,6 +1,5 @@
 package com.normal.zbase.logs
 
-import android.text.TextUtils
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
@@ -10,9 +9,7 @@ import com.elvishew.xlog.printer.file.FilePrinter
 import com.elvishew.xlog.printer.file.backup.NeverBackupStrategy
 import com.elvishew.xlog.printer.file.clean.FileLastModifiedCleanStrategy
 import com.elvishew.xlog.printer.file.naming.DateFileNameGenerator
-import com.google.gson.Gson
 import com.normal.zbase.http.domain.ApiConfig
-import com.normal.zbase.utils.extend.gson
 import java.io.File
 
 /**
@@ -21,7 +18,7 @@ import java.io.File
  *    日志类
  * *******************
  */
-object LoggerUtils {
+object Logs {
     private const val MAX_TIME = (7 * 24 * 60 * 60 * 1000).toLong()
     private var TAG = ApiConfig.HTTP_TAG
 
@@ -45,6 +42,18 @@ object LoggerUtils {
         createDir(LogFilesPath.API)
     }
 
+    @JvmField
+    val NORMAL = log_help.instance(mapPath[LogFilesPath.NORMAL]!!)
+
+    @JvmField
+    val ERROR = log_help.instance(mapPath[LogFilesPath.ERROR]!!)
+
+    @JvmField
+    val API = log_help.instance(mapPath[LogFilesPath.API]!!)
+
+    @JvmField
+    val OTHER = log_help.instance(mapPath[LogFilesPath.OTHER]!!)
+
     /**
      * 日志的路径，第一个是默认日志的路径
      */
@@ -60,59 +69,6 @@ object LoggerUtils {
         )
     }
 
-    /**
-     * @param logPathKey 可以忽略 指定日志的输入路径 LogFilesPath ,不指定使用默认路径
-     */
-    @JvmStatic
-    @JvmOverloads
-    fun i(msg: String = "", logPathKey: String = "") {
-        if (TextUtils.isEmpty(logPathKey)) {
-            XLog.i(msg)
-        } else {
-            XLog.printers(mapPath[logPathKey]).i(msg)
-        }
-
-    }
-
-    /**
-     * @param logPathKey 可以忽略 指定日志的输入路径 LogFilesPath,不指定使用默认路径
-     */
-    @JvmStatic
-    @JvmOverloads
-    fun json(obj: Any, logPathKey: String = "") {
-        val toJson = gson.toJson(obj)
-        if (TextUtils.isEmpty(logPathKey)) {
-            XLog.json(toJson)
-        } else {
-            XLog.printers(mapPath[logPathKey]).json(toJson)
-        }
-    }
-
-    /**
-     * @param logPathKey 可以忽略 指定日志的输入路径 LogFilesPath,不指定使用默认路径
-     */
-    @JvmStatic
-    @JvmOverloads
-    fun e(e: Exception, logPathKey: String = "") {
-        if (TextUtils.isEmpty(logPathKey)) {
-            XLog.e(e)
-        } else {
-            XLog.printers(mapPath[logPathKey]).e(e)
-        }
-    }
-
-    /**
-     * @param logPathKey 可以忽略 指定日志的输入路径 LogFilesPath,不指定使用默认路径
-     */
-    @JvmStatic
-    @JvmOverloads
-    fun e(throwable: Throwable, logPathKey: String = "") {
-        if (TextUtils.isEmpty(logPathKey)) {
-            XLog.e(throwable)
-        } else {
-            XLog.printers(mapPath[logPathKey]).e(throwable)
-        }
-    }
 
     private fun initXLog() {
         val config: LogConfiguration = LogConfiguration.Builder()
@@ -142,7 +98,7 @@ object LoggerUtils {
         val file = File(path)
         if (!file.exists()) {
             if (!file.mkdirs()) {
-                i("$path 目录创建失败")
+                ERROR.i("$path 目录创建失败")
                 return
             }
         }

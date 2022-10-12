@@ -1,7 +1,7 @@
 package com.normal.zbase.http.domain.service.help
 
 import com.normal.zbase.http.domain.ApiConfig
-import com.normal.zbase.logs.LoggerUtils
+import com.normal.zbase.logs.Logs
 import com.normal.zbase.utils.tools.ApplicationUtils
 import com.normal.zbase.utils.tools.MyHttpLoggingInterceptor
 import okhttp3.Cache
@@ -42,15 +42,15 @@ object OkhttpClientHelp {
                     if (ApiConfig.filterLogMsg.size > 0) {
                         ApiConfig.filterLogMsg.map { filterLog ->
                             if (!message.contains(filterLog)) {
-                                LoggerUtils.i(message)
+                                Logs.API.i(message)
                             }
                         }
                     } else {
-                        LoggerUtils.i(message)
+                        Logs.API.i(message)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    LoggerUtils.e(e)
+                    Logs.API.e(e)
                 }
             }
         }.setLevel(MyHttpLoggingInterceptor.Level.BODY)

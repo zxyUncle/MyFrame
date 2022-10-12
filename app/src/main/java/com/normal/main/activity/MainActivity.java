@@ -17,7 +17,7 @@ import com.normal.zbase.event.MessageEventBean;
 import com.normal.zbase.http.domain.ApiFoctory;
 import com.normal.zbase.http.domain.ApiSubscriber;
 import com.normal.zbase.http.dto.LoginResultDto;
-import com.normal.zbase.logs.LoggerUtils;
+import com.normal.zbase.logs.Logs;
 import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.subject.BaseActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     protected void onResponseHandler(LoginResultDto loginResultDto) {//非必实现，不判断成功还是失败，直觉返回，跟onSuccess、onFail互斥，二选一
                         super.onResponseHandler(loginResultDto);
                         TToast.show(new Gson().toJson(loginResultDto));
-                        LoggerUtils.json(loginResultDto);
+                        Logs.NORMAL.json(loginResultDto);
                         if (loginResultDto.isSuccess()){
 
                         }else{
@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     @Override
                     protected void onSuccess(ChannelStatusInfoDto channelStatusInfoDto) {//非必实现，成功的返回（code == 200），code 或 200在ApiConfig文件中修改
                         super.onSuccess(channelStatusInfoDto);
-                        LoggerUtils.json(channelStatusInfoDto);
+                        Logs.NORMAL.json(channelStatusInfoDto);
                     }
                 });
     }
