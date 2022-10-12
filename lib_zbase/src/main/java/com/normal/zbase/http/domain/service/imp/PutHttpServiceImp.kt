@@ -4,13 +4,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.reflect.TypeToken
 import com.normal.zbase.http.domain.ApiHttp
-import com.normal.zbase.http.domain.RxSchedulers
+import com.normal.zbase.http.domain.service.help.RxSchedulers
 import com.normal.zbase.http.domain.service.HttpRequestService
 import com.normal.zbase.http.utils.Rxlifecycle
-import com.normal.zbase.manager.ActivityStackManager
-import com.uber.autodispose.AutoDispose
 import com.uber.autodispose.FlowableSubscribeProxy
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import io.reactivex.Flowable
 import kotlinx.coroutines.*
 import okhttp3.ResponseBody

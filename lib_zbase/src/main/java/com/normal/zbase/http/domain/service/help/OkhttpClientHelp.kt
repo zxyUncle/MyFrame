@@ -19,13 +19,17 @@ import java.util.concurrent.TimeUnit
  * ******************************************
  */
 object OkhttpClientHelp {
+    lateinit var builderBuild: OkHttpClient
 
     fun getClient(): OkHttpClient {
+        if (::builderBuild.isInitialized){
+            return builderBuild
+        }
         val cache =
             Cache(File(ApplicationUtils.context().cacheDir, "http_cache"), 1024 * 1024 * 100)
         val cookieManager = CookieManager()
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
-        val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+        var builder:OkHttpClient.Builder = OkHttpClient.Builder()
             .cache(cache)
             .cookieJar(JavaNetCookieJar(cookieManager))
             .readTimeout(20, TimeUnit.SECONDS)
@@ -56,6 +60,7 @@ object OkhttpClientHelp {
             builder.addInterceptor(interceptor)
         }
         builder.addInterceptor(loggingInterceptor)
-        return builder.build()
+        builderBuild = builder.build()
+        return builderBuild
     }
 }
