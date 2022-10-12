@@ -41,16 +41,16 @@ object Logs {
         createDir(LogFilesPath.OTHER)
         createDir(LogFilesPath.API)
     }
-
+    //默认级别日志
     @JvmField
     val NORMAL = log_help.instance(mapPath[LogFilesPath.NORMAL]!!)
-
+    //错误级别日志
     @JvmField
     val ERROR = log_help.instance(mapPath[LogFilesPath.ERROR]!!)
-
+    //网路级别日志
     @JvmField
     val API = log_help.instance(mapPath[LogFilesPath.API]!!)
-
+    //其他级别日志
     @JvmField
     val OTHER = log_help.instance(mapPath[LogFilesPath.OTHER]!!)
 
