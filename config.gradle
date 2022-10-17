@@ -2,7 +2,6 @@
 ext {
 
     app = [
-            applicationId: "com.zxy.myframe",
             versionCode  : 10001,
             versionName  : "1.0.1",
     ]

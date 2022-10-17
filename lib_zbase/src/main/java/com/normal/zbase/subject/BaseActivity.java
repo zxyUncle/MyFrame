@@ -27,11 +27,13 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         View.OnClickListener {
     protected final String TAG = getClass().getSimpleName();
     protected T mDataBind;
+    public AppCompatActivity baseActivity;
     protected ToolbarLayoutBinding toolbarDataBind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        baseActivity = this;
         ActivityStackManager.getActivityManager().addActivity(this);
         init();
         int resID = getLayoutResID();
@@ -45,6 +47,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         ARouter.init(ApplicationUtils.context());
         ARouter.getInstance().inject(this);
         initView(savedInstanceState);
+        initListener();
     }
 
     @Override
@@ -80,6 +83,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected void initView(Bundle savedInstanceState) {
         getToolbarLayoutBinding();
     }
+
+    protected void initListener(){}
 
     protected void init() {
     }

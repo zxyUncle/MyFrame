@@ -31,7 +31,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
 
     protected T mDataBind;
 
-    protected AppCompatActivity mActivity;
+    protected AppCompatActivity baseActivity;
 
     protected boolean isHidden;
 
@@ -40,7 +40,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.mActivity = (AppCompatActivity) context;
+        this.baseActivity = (AppCompatActivity) context;
     }
 
     @Nullable
@@ -84,7 +84,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.isHidden = hidden;
-        if (mActivity != null) {
+        if (baseActivity != null) {
             if (!isHidden) {
                 if (!isPageShow) {
                     isPageShow = true;

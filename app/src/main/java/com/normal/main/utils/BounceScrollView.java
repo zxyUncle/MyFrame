@@ -1,4 +1,4 @@
-package com.normal.main;
+package com.normal.main.utils;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

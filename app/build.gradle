@@ -7,9 +7,10 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
+        applicationId "com.normal.myframe"
+
         minSdk rootProject.ext.android.minSdkVersion
         targetSdk rootProject.ext.android.targetSdkVersion
-        applicationId rootProject.ext.app.applicationId
         versionCode rootProject.ext.app.versionCode
         versionName rootProject.ext.app.versionName
 

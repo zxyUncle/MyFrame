@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.normal.main.BounceScrollView
+import com.normal.main.utils.BounceScrollView
 import com.normal.main.R
 import com.normal.zbase.http.dto.LoginResultDto
 import com.normal.zbase.manager.ActivityStackManager

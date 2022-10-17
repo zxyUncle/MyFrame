@@ -57,15 +57,15 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
             fieldCode?.isAccessible = true
             when (fieldCode?.get(it)) {
                 ApiConfig.CODE_SUCCESS ->//成功
-                    onSuccess(it)
+                    onSuccessHandler(it)
                 ApiConfig.CODE_TOKEN_INVALID -> {//token失效
-                    onFail(it)
+                    onFailHandler(it)
 //                    ARouter.getInstance().build(RouterConstants.Path.BASE_CONTAINER)
 //                        .withString(RouterConstants.KV.PAGE_PATH, RouterConstants.Path.BASE_NO_NETWORK)
 //                        .navigation()
                 }
                 else -> {// 失败
-                    onFail(it)
+                    onFailHandler(it)
                 }
             }
         } catch (e: Exception) {
@@ -129,13 +129,13 @@ abstract class ApiSubscriber<T> @JvmOverloads constructor(
      * 非必实现，成功的返回（code == 200），修改code 在ApiConfig文件中
      * @param t 返回的对象
      */
-    protected open fun onSuccess(t: T) {}
+    protected open fun onSuccessHandler(t: T) {}
 
     /**
      * 非必实现，失败 code ！= 200
      * @param t 返回的对象
      */
-    protected open fun onFail(t: T) {}
+    protected open fun onFailHandler(t: T) {}
 
     /**
      * 非必实现，整个请求完成的回调，方便做刷新动画的结束标志等

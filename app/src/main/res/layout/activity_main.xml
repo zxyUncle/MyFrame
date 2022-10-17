@@ -22,10 +22,11 @@
         <include layout="@layout/toolbar_layout" />
 
         <Button
+            android:id="@+id/btn_get"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="@{activity::onGet}"
+            android:onClick="@{activity::onClickView}"
             android:text="Get"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,10 +35,11 @@
             />
 
         <Button
+            android:id="@+id/btn_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="@{activity::onPost}"
+            android:onClick="@{activity::onClickView}"
             android:text="Post"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

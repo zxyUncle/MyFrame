@@ -1,7 +1,5 @@
 package com.normal.zbase.logs;
 
-import android.os.Environment;
-
 import com.normal.zbase.utils.tools.ApplicationUtils;
 
 /**
@@ -10,7 +8,7 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  * Environment.getExternalStorageDirectory().getPath() + "/Download/
  */
 public @interface LogFilesPath {
-    String PARENT = Environment.getExternalStorageDirectory().getPath() + "/Download/" + ApplicationUtils.context().getPackageName() + "/";
+    String PARENT = ApplicationUtils.context().getFilesDir() + "/logs/";
 //    String PARENT = Environment.getStorageDirectory().+ "/logs/" + ApplicationUtils.context().getPackageName() + "/";
     //日志级别目录
     String NORMAL = PARENT + "logs"; //默认路径

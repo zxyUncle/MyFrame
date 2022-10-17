@@ -40,7 +40,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                     // 由于主线程的Crash是统一出现在loop()的case
                     Looper.loop();//主线程的异常会从这里抛出
                 } catch (Throwable throwable) {
-                    Logs.ERROR.e(throwable);
+                    Logs.getERROR().e(throwable);
                 }
             }
         });
@@ -49,7 +49,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
         try {
-            Logs.ERROR.e(throwable);
+            Logs.getERROR().e(throwable);
             throwable.printStackTrace();
             thread.interrupt();
         } catch (Exception ignored) {

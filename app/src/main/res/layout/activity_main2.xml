@@ -29,7 +29,7 @@
     </LinearLayout>
 
 <!--    第二层滑动视图，滑动回弹 -->
-    <com.normal.main.BounceScrollView
+    <com.normal.main.utils.BounceScrollView
         android:id="@+id/mBounceScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,5 +66,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.normal.main.BounceScrollView>
+    </com.normal.main.utils.BounceScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

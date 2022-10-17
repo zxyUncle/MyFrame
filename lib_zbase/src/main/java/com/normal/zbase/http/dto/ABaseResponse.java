@@ -6,6 +6,8 @@ public class ABaseResponse {
     private String isSuccess;
     private String message;
 
+
+
     public String getResult() {
         return result;
     }

@@ -5,6 +5,7 @@ import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
 import com.elvishew.xlog.flattener.ClassicFlattener
 import com.elvishew.xlog.printer.AndroidPrinter
+import com.elvishew.xlog.printer.Printer
 import com.elvishew.xlog.printer.file.FilePrinter
 import com.elvishew.xlog.printer.file.backup.NeverBackupStrategy
 import com.elvishew.xlog.printer.file.clean.FileLastModifiedCleanStrategy
@@ -22,84 +23,74 @@ object Logs {
     private const val MAX_TIME = (7 * 24 * 60 * 60 * 1000).toLong()
     private var TAG = ApiConfig.HTTP_TAG
 
-    private var mapPath = mutableMapOf<String, FilePrinter>()
+    private var mapPath = mutableMapOf<String, Array<Printer>>()
 
-    private fun getFilePrinter(pathKey: String): FilePrinter {
-        return FilePrinter.Builder(pathKey) // Specify the directory path of log file(s)
-            .fileNameGenerator(DateFileNameGenerator()) // Default: ChangelessFileNameGenerator("log")
-            .backupStrategy(NeverBackupStrategy()) // Default: FileSizeBackupStrategy(1024 * 1024)
-            .cleanStrategy(FileLastModifiedCleanStrategy(MAX_TIME)) // Default: NeverCleanStrategy()
-            .flattener(ClassicFlattener()) // Default: DefaultFlattener
-            .build()
-    }
+    private val logConfiguration: LogConfiguration = LogConfiguration.Builder()
+        .logLevel(LogLevel.ALL)// Specify log level, logs below this level won't be printed, default: LogLevel.ALL)
+        .tag(TAG) // Specify TAG, default: "X-LOG"
+        .nst()
+        .build()
 
     init {
-        initXLog()
-        initFilePrinter()
-        createDir(LogFilesPath.NORMAL)
-        createDir(LogFilesPath.ERROR)
-        createDir(LogFilesPath.OTHER)
-        createDir(LogFilesPath.API)
+        createDir(LogFilesPath.NORMAL, LogFilesPath.ERROR, LogFilesPath.OTHER, LogFilesPath.API)
+        initXLog(LogFilesPath.NORMAL, LogFilesPath.ERROR, LogFilesPath.OTHER, LogFilesPath.API)
     }
+
     //默认级别日志
-    @JvmField
-    val NORMAL = log_help.instance(mapPath[LogFilesPath.NORMAL]!!)
-    //错误级别日志
-    @JvmField
-    val ERROR = log_help.instance(mapPath[LogFilesPath.ERROR]!!)
+    @JvmStatic
+    val NORMAL: HelpLog by lazy {
+        HelpLog(*mapPath[LogFilesPath.NORMAL]!!)
+    }
+
+    //错误日志
+    @JvmStatic
+    val ERROR: HelpLog by lazy {
+        HelpLog(*mapPath[LogFilesPath.ERROR]!!)
+    }
+
     //网路级别日志
-    @JvmField
-    val API = log_help.instance(mapPath[LogFilesPath.API]!!)
+    @JvmStatic
+    val API: HelpLog by lazy {
+        HelpLog(*mapPath[LogFilesPath.API]!!)
+    }
+
     //其他级别日志
-    @JvmField
-    val OTHER = log_help.instance(mapPath[LogFilesPath.OTHER]!!)
-
-    /**
-     * 日志的路径，第一个是默认日志的路径
-     */
-    private fun initFilePrinter() {
-        mapPath[LogFilesPath.ERROR] = getFilePrinter(
-            LogFilesPath.ERROR
-        )
-        mapPath[LogFilesPath.API] = getFilePrinter(
-            LogFilesPath.API
-        )
-        mapPath[LogFilesPath.OTHER] = getFilePrinter(
-            LogFilesPath.OTHER
-        )
+    @JvmStatic
+    val OTHER: HelpLog by lazy {
+        HelpLog(*mapPath[LogFilesPath.OTHER]!!)
     }
 
+    //初始化日志
+    private fun initXLog(vararg path: String) {
+        for (index in path) {
+            val androidPrinter =
+                AndroidPrinter(true) // Printer that print the log using android.util.Log
 
-    private fun initXLog() {
-        val config: LogConfiguration = LogConfiguration.Builder()
-            .logLevel(LogLevel.ALL)// Specify log level, logs below this level won't be printed, default: LogLevel.ALL)
-            .tag(TAG) // Specify TAG, default: "X-LOG"
-            .nst()
-            .build()
+            val filePrinter =
+                FilePrinter.Builder(index) // Specify the directory path of log file(s)
+                    .fileNameGenerator(DateFileNameGenerator()) // Default: ChangelessFileNameGenerator("log")
+                    .backupStrategy(NeverBackupStrategy()) // Default: FileSizeBackupStrategy(1024 * 1024)
+                    .cleanStrategy(FileLastModifiedCleanStrategy(MAX_TIME)) // Default: NeverCleanStrategy()
+                    .flattener(ClassicFlattener()) // Default: DefaultFlattener
+                    .build()
+            val listPrinter = arrayOf(androidPrinter, filePrinter)
+            XLog.init(logConfiguration, *listPrinter)
+            mapPath[index] = listPrinter
+        }
 
-        val androidPrinter =
-            AndroidPrinter(true) // Printer that print the log using android.util.Log
-
-        val filePrinter =
-            FilePrinter.Builder(LogFilesPath.NORMAL) // Specify the directory path of log file(s)
-                .fileNameGenerator(DateFileNameGenerator()) // Default: ChangelessFileNameGenerator("log")
-                .backupStrategy(NeverBackupStrategy()) // Default: FileSizeBackupStrategy(1024 * 1024)
-                .cleanStrategy(FileLastModifiedCleanStrategy(MAX_TIME)) // Default: NeverCleanStrategy()
-                .flattener(ClassicFlattener()) // Default: DefaultFlattener
-                .build()
-        XLog.init(config, androidPrinter, filePrinter)
-        mapPath[LogFilesPath.NORMAL] = filePrinter
 
     }
 
-
-    private fun createDir(path: String = LogFilesPath.NORMAL) {
-        // 检查日志文件夹
-        val file = File(path)
-        if (!file.exists()) {
-            if (!file.mkdirs()) {
-                ERROR.i("$path 目录创建失败")
-                return
+    //创建日志目录
+    private fun createDir(vararg path: String) {
+        for (index in path) {
+            // 检查日志文件夹
+            val file = File(index)
+            if (!file.exists()) {
+                if (!file.mkdirs()) {
+                    ERROR.i("$index 目录创建失败")
+                    return
+                }
             }
         }
     }

@@ -76,13 +76,13 @@ class PostHttpServiceImp(path: String) : HttpRequestService(path) {
     }
 
     /**
-     * 没有父类的基类，基类本身包含code message
+     *
      */
     fun <R> execute(response: Class<R>): FlowableSubscribeProxy<R> {
         return if (isForm) {
-            bindFlow(mRetrofit.create(ApiHttp::class.java).formPost(headers, path!!, params!!, body!! as Map<String, @JvmSuppressWildcards Any>), response)
+            bindFlow(mRetrofit.create(ApiHttp::class.java).formPost(headers, path!!, params!!, body as Map<String, @JvmSuppressWildcards Any>), response)
         } else {
-            bindFlow(mRetrofit.create(ApiHttp::class.java).post(headers, path!!, params!!, body!!), response)
+            bindFlow(mRetrofit.create(ApiHttp::class.java).post(headers, path!!, params!!, body), response)
         }
     }
 
