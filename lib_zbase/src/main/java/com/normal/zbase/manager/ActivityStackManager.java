@@ -1,7 +1,7 @@
 package com.normal.zbase.manager;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
-import com.normal.zbase.subject.BaseActivity;
+import com.normal.zbase.subject.BaseMVVMActivity;
 import java.util.Stack;
 
 /**
@@ -104,7 +104,7 @@ public class ActivityStackManager {
      *
      * @author kymjs
      */
-    public <T extends BaseActivity> T getActivity(Class<T> cls) {
+    public <T extends BaseMVVMActivity> T getActivity(Class<T> cls) {
         if (activityStack != null)
             for (AppCompatActivity activity : activityStack) {
                 if (activity.getClass().equals(cls)) {

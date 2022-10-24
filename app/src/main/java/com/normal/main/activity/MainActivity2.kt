@@ -52,7 +52,7 @@ class MainActivity2 : AppCompatActivity() {
 
     fun onStartAct(view: View?) {
         val intent = Intent()
-        intent.setClass(this, MainActivity::class.java)
+        intent.setClass(this, MainMVVMActivity::class.java)
         startActivity(intent)
     }
 }

@@ -9,7 +9,7 @@
 
         <variable
             name="activity"
-            type="com.normal.main.activity.MainActivity"
+            type="com.normal.main.activity.MainMVVMActivity"
             />
     </data>
 

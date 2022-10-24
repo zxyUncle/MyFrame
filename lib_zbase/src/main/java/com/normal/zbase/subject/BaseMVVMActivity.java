@@ -12,7 +12,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.normal.zbase.R;
 import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
-import com.normal.zbase.http.domain.ApiHttp;
 import com.normal.zbase.manager.ActivityStackManager;
 import com.normal.zbase.event.EventBusUtils;
 import com.normal.zbase.utils.tools.ApplicationUtils;
@@ -23,9 +22,8 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  * BaseActivity
  * *******************
  */
-public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity implements
+public abstract class BaseMVVMActivity<T extends ViewDataBinding> extends AppCompatActivity implements
         View.OnClickListener {
-    protected final String TAG = getClass().getSimpleName();
     protected T mDataBind;
     public AppCompatActivity baseActivity;
     protected ToolbarLayoutBinding toolbarDataBind;
@@ -64,7 +62,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     public void onClick(View v) {
     }
 
-    public BaseActivity<T> getActivity() {
+    public BaseMVVMActivity<T> getActivity() {
         return this;
     }
 

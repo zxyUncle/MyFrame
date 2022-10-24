@@ -5,19 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleObserver;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.normal.zbase.R;
-import com.normal.zbase.databinding.ToolbarLayoutBinding;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.EventBusUtils;
 
@@ -27,10 +20,7 @@ import com.normal.zbase.event.EventBusUtils;
  *    BaseFragment
  * *******************
  */
-public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment implements View.OnClickListener {
-
-    protected T mDataBind;
-
+public abstract class BaseMVCFragment extends Fragment implements View.OnClickListener {
     protected AppCompatActivity baseActivity;
 
     protected boolean isHidden;
@@ -47,19 +37,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
-        if (mDataBind == null) {
-            mDataBind = DataBindingUtil.inflate(inflater, getLayoutResID(), container, false);
-            ARouter.getInstance().inject(this);
-            initToolbar(mDataBind.getRoot());
-            initView(mDataBind.getRoot(), savedInstanceState);
-            post(this::loadData);
-            if (this instanceof LifecycleObserver)
-                getLifecycle().addObserver((LifecycleObserver) this);
-            if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
-                EventBusUtils.register(this);
-            }
-        }
-        return mDataBind.getRoot();
+        return  inflater.inflate(getLayoutResID(),null);
     }
 
     @Override
@@ -105,32 +83,14 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
         if (this.getClass().isAnnotationPresent(BindEventBus.class)) {
             EventBusUtils.unregister(this);
         }
-        if (null != mDataBind) {//提示should remove parent view
-            ViewParent parent = mDataBind.getRoot().getParent();
-            if (parent != null) ((ViewGroup) parent).removeView(mDataBind.getRoot());
-        }
     }
 
     @Override
     public void onClick(View v) {
     }
 
-    public T getBinding() {
-        return mDataBind;
-    }
-
-    protected void post(Runnable action) {
-        mDataBind.getRoot().post(action);
-    }
-
-    protected void postDelayed(Runnable action, long delayMillis) {
-        mDataBind.getRoot().postDelayed(action, delayMillis);
-    }
-
     protected abstract int getLayoutResID();
 
-    protected void initToolbar(View view) {
-    }
 
     protected void initView(View view, Bundle savedInstanceState) {
     }
@@ -148,9 +108,5 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
     public void onPagePause() {
     }
 
-
-    protected ToolbarLayoutBinding getToolbarLayoutBinding(View view) {
-        return DataBindingUtil.bind(view.findViewById(R.id.custom_toolbar));
-    }
 
 }

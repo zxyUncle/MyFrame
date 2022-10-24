@@ -15,7 +15,7 @@ import com.normal.main.vm.MainActVM;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.MessageEventBean;
 import com.normal.zbase.manager.PermissionManager;
-import com.normal.zbase.subject.BaseActivity;
+import com.normal.zbase.subject.BaseMVVMActivity;
 import com.normal.zbase.subject.BaseRecyclerViewAdapter;
 import com.zxy.zxydialog.TToast;
 
@@ -31,7 +31,7 @@ import java.util.List;
  * *******************
  */
 @BindEventBus
-public class MainActivity extends BaseActivity<ActivityMainBinding> {
+public class MainMVVMActivity extends BaseMVVMActivity<ActivityMainBinding> {
     private BaseRecyclerViewAdapter<String> adapter = new BaseRecyclerViewAdapter<>(R.layout.adapter_item);
     private List list = Arrays.asList("o1", "o2", "o2");
 

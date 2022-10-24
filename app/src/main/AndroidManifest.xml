@@ -23,7 +23,7 @@
 
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MainMVVMActivity"
             android:exported="true"
             >
             <intent-filter>
