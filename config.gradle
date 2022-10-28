@@ -2,8 +2,8 @@
 ext {
 
     app = [
-            versionCode  : 10001,
-            versionName  : "1.0.1",
+            versionCode: 10001,
+            versionName: "1.0.1",
     ]
 
     android = [
@@ -45,6 +45,8 @@ ext {
             "lifecycleScope"               : 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0',
             "viewModelScope"               : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0',
             "permissionx"                  : 'com.permissionx.guolindev:permissionx:1.4.0',
+            "navigation-fragment"          : 'androidx.navigation:navigation-fragment:2.5.2',
+            "navigation-ui"                : 'androidx.navigation:navigation-ui:2.5.2',
 
     ]
 

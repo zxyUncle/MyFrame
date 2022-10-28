@@ -71,6 +71,8 @@ dependencies {
     api rootProject.ext.dependencies["lifecycleScope"]
     api rootProject.ext.dependencies["viewModelScope"]
     api rootProject.ext.dependencies["permissionx"]
+    api rootProject.ext.dependencies["navigation-fragment"]
+    api rootProject.ext.dependencies["navigation-ui"]
 }
 
 task sourceJar(type: Jar) {

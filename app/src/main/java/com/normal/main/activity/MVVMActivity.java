@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
 import com.normal.main.R;
-import com.normal.main.databinding.ActivityMainBinding;
+import com.normal.main.databinding.ActivityMvvmBinding;
 import com.normal.main.vm.MainActVM;
 import com.normal.zbase.event.BindEventBus;
 import com.normal.zbase.event.MessageEventBean;
@@ -24,14 +24,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by zsf on 2022/1/17 17:38
- * *******************
- * 主入口
- * *******************
- */
 @BindEventBus
-public class MainMVVMActivity extends BaseMVVMActivity<ActivityMainBinding> {
+public class MVVMActivity extends BaseMVVMActivity<ActivityMvvmBinding> {
     private BaseRecyclerViewAdapter<String> adapter = new BaseRecyclerViewAdapter<>(R.layout.adapter_item);
     private List list = Arrays.asList("o1", "o2", "o2");
 
@@ -39,7 +33,7 @@ public class MainMVVMActivity extends BaseMVVMActivity<ActivityMainBinding> {
 
     @Override
     protected int getLayoutResID() {
-        return R.layout.activity_main;
+        return R.layout.activity_mvvm;
     }
 
     @Override
