@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.normal.main.fragment.FirstFragment"
+        android:label="FirstFragment"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_first">
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.normal.main.fragment.SecondFragment"
+        android:label="SecondFragment"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_second">
+    </fragment>
+
+    <!--    模拟跳转到Actiivty，其实用全Fragment，-->
+    <activity
+        android:id="@+id/mvvmActivity"
+        android:name="com.normal.main.activity.MVVMActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_mvvm"/>
+</navigation>
