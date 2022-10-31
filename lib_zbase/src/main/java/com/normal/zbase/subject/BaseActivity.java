@@ -18,7 +18,7 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  * BaseActivity
  * *******************
  */
-public abstract class BaseMVCActivity extends AppCompatActivity implements
+public abstract class BaseActivity extends AppCompatActivity implements
         View.OnClickListener {
     public AppCompatActivity baseActivity;
 

@@ -8,10 +8,10 @@ import com.normal.main.R
 import com.normal.main.http.dto.ChannelStatusInfoDto
 import com.normal.main.vm.MainActVM
 import com.normal.zbase.http.dto.LoginResultDto
-import com.normal.zbase.subject.BaseMVCActivity
+import com.normal.zbase.subject.BaseActivity
 import com.zxy.zxydialog.TToast
 
-class MVCActivity : BaseMVCActivity() {
+class MVCActivity : BaseActivity() {
     private lateinit var mainActVM: MainActVM
     override fun getLayoutResID() = R.layout.activity_mvcactivity
 

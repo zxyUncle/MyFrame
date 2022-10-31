@@ -11,6 +11,10 @@
         android:label="FirstFragment"
         app:popUpToInclusive="true"
         tools:layout="@layout/fragment_first">
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
@@ -18,6 +22,10 @@
         android:label="SecondFragment"
         app:popUpToInclusive="true"
         tools:layout="@layout/fragment_second">
+        <action
+            android:id="@+id/action_secondFragment_to_thridFragment"
+            app:destination="@id/thridFragment"
+            />
     </fragment>
 
     <!--    模拟跳转到Actiivty，其实用全Fragment，-->
@@ -26,4 +34,10 @@
         android:name="com.normal.main.activity.MVVMActivity"
         android:label="activity_home"
         tools:layout="@layout/activity_mvvm"/>
+    <fragment
+        android:id="@+id/thridFragment"
+        android:name="com.normal.main.fragment.ThridFragment"
+        android:label="fragment_thrid"
+        tools:layout="@layout/fragment_thrid"
+        />
 </navigation>

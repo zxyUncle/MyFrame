@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'maven-publish'
+    id 'androidx.navigation.safeargs'//Safe Args 确保类型安全
+
 }
 
 android {

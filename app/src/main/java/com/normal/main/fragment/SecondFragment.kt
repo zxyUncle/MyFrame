@@ -21,10 +21,10 @@ class SecondFragment : BaseMVVMFragment<FragmentSecondBinding>() {
         super.initView(view, savedInstanceState)
 
         mDataBind.btnHome.setOnClickListener {
-            (activity as NavigationActivity).navigation.navSkipFragment(view, R.id.mvvmActivity)
+            Navigations.navSkipFragment(view, R.id.mvvmActivity)
         }
         mDataBind.btnFirst.setOnClickListener {
-            (activity as NavigationActivity).navigation.navSkipExist(R.id.firstFragment)
+            Navigations.navSkipExist(R.id.firstFragment)
         }
     }
 

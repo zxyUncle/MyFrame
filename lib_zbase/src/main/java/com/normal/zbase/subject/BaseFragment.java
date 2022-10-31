@@ -17,10 +17,10 @@ import com.normal.zbase.event.EventBusUtils;
 /**
  * Created by zsf on 2022/1/20 11:49
  * *******************
- *    BaseFragment
+ * BaseFragment
  * *******************
  */
-public abstract class BaseMVCFragment extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment extends Fragment implements View.OnClickListener {
     protected AppCompatActivity baseActivity;
 
     protected boolean isHidden;
@@ -37,7 +37,13 @@ public abstract class BaseMVCFragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
-        return  inflater.inflate(getLayoutResID(),null);
+        return inflater.inflate(getLayoutResID(), null);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view,savedInstanceState);
     }
 
     @Override
@@ -95,12 +101,6 @@ public abstract class BaseMVCFragment extends Fragment implements View.OnClickLi
     protected void initView(View view, Bundle savedInstanceState) {
     }
 
-    protected void loadData() {
-    }
-
-    public boolean isPageShow() {
-        return isPageShow;
-    }
 
     public void onPageResume() {
     }

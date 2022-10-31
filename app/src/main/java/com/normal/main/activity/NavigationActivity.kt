@@ -2,38 +2,34 @@ package com.normal.main.activity
 
 import android.os.Bundle
 import android.widget.Button
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.normal.main.R
-import com.normal.zbase.subject.BaseMVCActivity
+import com.normal.main.fragment.ThridFragment
+import com.normal.zbase.subject.BaseActivity
 import com.normal.zbase.utils.tools.Navigations
 
 //Navigation
-class NavigationActivity : BaseMVCActivity() {
-    val navigation by lazy {
-        Navigations()
-    }
+class NavigationActivity : BaseActivity() {
 
     override fun getLayoutResID() = R.layout.activity_navigation
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        navigation.navInit(this, R.id.mFrameLayout, R.navigation.nav_graph)
+        Navigations.navInit(this, R.id.fragmentContainerView, R.navigation.nav_graph)
     }
 
     override fun initListener() {
         super.initListener()
         findViewById<Button>(R.id.btn_first).setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("name", "First")
-            bundle.putString("age", "12")
-            //跳转到firstFragment
-            navigation.navSkip(R.id.firstFragment, bundle)
+            Navigations.navSkip(R.id.firstFragment)
         }
 
         findViewById<Button>(R.id.btn_second).setOnClickListener {
-            navigation.navSkip(
+            Navigations.navSkip(
                 R.id.secondFragment,
                 Bundle(),
-                navigation.navOptionsExit
+                Navigations.navOptionsExit
             )
         }
     }

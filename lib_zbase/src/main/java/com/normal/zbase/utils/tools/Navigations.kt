@@ -17,7 +17,7 @@ import com.normal.zbase.R
  * * navigation-fragment
  * ******************************************
  */
-class Navigations {
+object Navigations {
     private lateinit var fragmentActivity: FragmentActivity
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment

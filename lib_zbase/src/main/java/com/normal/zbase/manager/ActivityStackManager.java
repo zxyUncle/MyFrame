@@ -104,7 +104,7 @@ public class ActivityStackManager {
      *
      * @author kymjs
      */
-    public <T extends BaseMVVMActivity> T getActivity(Class<T> cls) {
+    public <T extends AppCompatActivity> T getActivity(Class<T> cls) {
         if (activityStack != null)
             for (AppCompatActivity activity : activityStack) {
                 if (activity.getClass().equals(cls)) {

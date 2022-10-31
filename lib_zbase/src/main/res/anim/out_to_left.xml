@@ -4,7 +4,7 @@
     android:interpolator="@android:anim/linear_interpolator"
     >
     <translate
-        android:duration="180"
+        android:duration="50"
         android:fromXDelta="0%p"
         android:toXDelta="-100%p"
         />
