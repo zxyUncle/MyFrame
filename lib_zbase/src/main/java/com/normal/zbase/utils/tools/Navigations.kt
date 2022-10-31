@@ -71,8 +71,9 @@ object Navigations {
      * @param view getView()
      * @param frameLayout 占位FrameLayout
      * @param bundle 传递参数
+     * @param navOptions 为null 表示无动画
      */
-    fun navSkipFragment(view: View?, action: Int, bundle: Bundle = Bundle(), navOptions: NavOptions = navOptionsEnter) {
+    fun navSkipFragment(view: View?, action: Int, bundle: Bundle = Bundle(), navOptions: NavOptions? = navOptionsEnter) {
         try {
             navController = Navigation.findNavController(view!!)
             navController.navigate(action, bundle, navOptions)
