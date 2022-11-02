@@ -3,10 +3,9 @@ package com.normal.main.fragment
 import android.os.Bundle
 import android.view.View
 import com.normal.main.R
-import com.normal.main.activity.NavigationActivity
 import com.normal.main.databinding.FragmentSecondBinding
 import com.normal.zbase.subject.BaseMVVMFragment
-import com.normal.zbase.utils.tools.Navigations
+import com.normal.zbase.subject.Navigations
 
 /**
  * Created by zsf on 2021/1/4 13:59

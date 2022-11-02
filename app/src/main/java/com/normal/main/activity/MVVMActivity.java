@@ -74,6 +74,8 @@ public class MVVMActivity extends BaseMVVMActivity<ActivityMvvmBinding> {
         }
     }
 
+
+
     /**
      * 数据返回类ViewMode LiveData
      */

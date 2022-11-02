@@ -1,4 +1,4 @@
-package com.normal.zbase.utils.tools
+package com.normal.zbase.subject
 
 import android.os.Bundle
 import android.view.View
@@ -39,8 +39,8 @@ object Navigations {
      * @param frameLayout 占位FrameLayout
      */
     fun navInit(fragmentActivity: FragmentActivity, frameLayout: Int, nav_graph: Int) {
-        this.fragmentActivity = fragmentActivity
-        this.frameLayout = frameLayout
+        Navigations.fragmentActivity = fragmentActivity
+        Navigations.frameLayout = frameLayout
         navHostFragment = NavHostFragment.create(nav_graph)
         beginTransaction = fragmentActivity.supportFragmentManager.beginTransaction()
         beginTransaction

@@ -2,12 +2,9 @@ package com.normal.main.activity
 
 import android.os.Bundle
 import android.widget.Button
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.normal.main.R
-import com.normal.main.fragment.ThridFragment
 import com.normal.zbase.subject.BaseActivity
-import com.normal.zbase.utils.tools.Navigations
+import com.normal.zbase.subject.Navigations
 
 //Navigation
 class NavigationActivity : BaseActivity() {
