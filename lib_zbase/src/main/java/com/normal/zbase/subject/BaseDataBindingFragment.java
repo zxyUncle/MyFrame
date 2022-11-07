@@ -27,7 +27,7 @@ import com.normal.zbase.event.EventBusUtils;
  *    BaseFragment
  * *******************
  */
-public abstract class BaseMVVMFragment<T extends ViewDataBinding> extends Fragment implements View.OnClickListener {
+public abstract class BaseDataBindingFragment<T extends ViewDataBinding> extends Fragment implements View.OnClickListener {
 
     protected T mDataBind;
 

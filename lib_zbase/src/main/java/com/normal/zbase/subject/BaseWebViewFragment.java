@@ -15,7 +15,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
 
-public abstract class BaseWebViewMVVMFragment<T extends ViewDataBinding> extends BaseMVVMFragment<T> {
+public abstract class BaseWebViewFragment<T extends ViewDataBinding> extends BaseDataBindingFragment<T> {
 
     protected void initWebView(WebView webView) {
         webView.setWebChromeClient(new WebChromeClient() {

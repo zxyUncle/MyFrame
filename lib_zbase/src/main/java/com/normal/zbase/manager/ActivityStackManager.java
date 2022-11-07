@@ -1,7 +1,7 @@
 package com.normal.zbase.manager;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
-import com.normal.zbase.subject.BaseMVVMActivity;
+
 import java.util.Stack;
 
 /**

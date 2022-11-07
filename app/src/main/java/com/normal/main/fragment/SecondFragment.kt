@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.normal.main.R
 import com.normal.main.databinding.FragmentSecondBinding
-import com.normal.zbase.subject.BaseMVVMFragment
+import com.normal.zbase.subject.BaseDataBindingFragment
 import com.normal.zbase.subject.Navigations
 
 /**
@@ -13,7 +13,7 @@ import com.normal.zbase.subject.Navigations
  * *
  * ******************************************
  */
-class SecondFragment : BaseMVVMFragment<FragmentSecondBinding>() {
+class SecondFragment : BaseDataBindingFragment<FragmentSecondBinding>() {
     override fun getLayoutResID() = R.layout.fragment_second
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {

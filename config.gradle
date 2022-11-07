@@ -47,6 +47,8 @@ ext {
             "permissionx"                  : 'com.permissionx.guolindev:permissionx:1.4.0',
             "navigation-fragment"          : 'androidx.navigation:navigation-fragment:2.5.2',
             "navigation-ui"                : 'androidx.navigation:navigation-ui:2.5.2',
+            "immersionbar"                 : 'com.geyifeng.immersionbar:immersionbar:3.2.2',//状态栏
+            "navigationtabbar"             : 'devlight.io:navigationtabbar:1.2.5',//底部导航-https://github.com/Devlight/NavigationTabBar
 
     ]
 

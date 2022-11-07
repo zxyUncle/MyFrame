@@ -22,7 +22,7 @@ import com.normal.zbase.utils.tools.ApplicationUtils;
  * BaseActivity
  * *******************
  */
-public abstract class BaseMVVMActivity<T extends ViewDataBinding> extends AppCompatActivity implements
+public abstract class BaseDataBindingActivity<T extends ViewDataBinding> extends AppCompatActivity implements
         View.OnClickListener {
     protected T mDataBind;
     public AppCompatActivity baseActivity;
@@ -62,7 +62,7 @@ public abstract class BaseMVVMActivity<T extends ViewDataBinding> extends AppCom
     public void onClick(View v) {
     }
 
-    public BaseMVVMActivity<T> getActivity() {
+    public BaseDataBindingActivity<T> getActivity() {
         return this;
     }
 

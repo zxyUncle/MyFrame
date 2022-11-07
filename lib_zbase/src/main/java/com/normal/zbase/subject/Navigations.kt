@@ -75,7 +75,7 @@ object Navigations {
      */
     fun navSkipFragment(view: View?, action: Int, bundle: Bundle = Bundle(), navOptions: NavOptions? = navOptionsEnter) {
         try {
-            navController = Navigation.findNavController(view!!)
+//            navController = Navigation.findNavController(view!!)
             navController.navigate(action, bundle, navOptions)
         } catch (e: Exception) {
             e.printStackTrace()
