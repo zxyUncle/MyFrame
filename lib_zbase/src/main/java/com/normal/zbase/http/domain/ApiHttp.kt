@@ -1,6 +1,7 @@
 package com.normal.zbase.http.domain
 
 import io.reactivex.Flowable
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -69,6 +70,7 @@ public interface ApiHttp {
         @HeaderMap headers: Map<String, @JvmSuppressWildcards Any>,
         @Path(value = "path", encoded = true) path: String,
         @QueryMap params: Map<String, @JvmSuppressWildcards Any>,
+        @PartMap files:Map<String, RequestBody>,
         @Body body: Any
     ): Flowable<ResponseBody>
 
